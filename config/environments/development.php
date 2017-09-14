@@ -5,4 +5,3 @@ define('WP_DEBUG', true);
 define('SCRIPT_DEBUG', true);
 define('ACF_EDITABLE', true);
 define('WP_POST_REVISIONS', 0);
-define('CDN_URL', '');

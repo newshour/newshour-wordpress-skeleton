@@ -7,7 +7,6 @@ define('SCRIPT_DEBUG', false);
 define('DISALLOW_FILE_MODS', true);
 define('WP_CACHE', true);
 define('WP_POST_REVISIONS', 0);
-define('CDN_URL', 'https://d3i6fh83elv35t.cloudfront.net/newshour/');
 
 /**
  * PBS AWS configurations.
