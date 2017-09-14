@@ -1,6 +1,6 @@
 # NewsHour Wordpress Skeleton
 
-This skeleton should be used to when creating Wordpress-based websites. It leverages [Bedrock](https://roots.io/bedrock/) for the project structure, [Composer](https://getcomposer.org/) for dependencies and [Timber](https://timber.github.io/docs/) for the theme framework.
+This skeleton should be used when creating Wordpress-based websites for NewsHour. It leverages [Bedrock](https://roots.io/bedrock/) for the project structure, [Composer](https://getcomposer.org/) for dependencies and [Timber](https://timber.github.io/docs/) for the theme framework.
 
 ## Usage
 
@@ -15,7 +15,7 @@ This skeleton should be used to when creating Wordpress-based websites. It lever
 
 When starting your theme, you should set your theme and custom plugin namespaces in the compser.json file. For example:
 
-```json
+```
 "autoload": {
     "psr-4": {
         "NewsHour\\Themes\\PBSNewsHour\\": "web/app/themes/pbs-newshour/src",
@@ -42,6 +42,7 @@ Timber uses Twig for its templating engine and you should enable template cachin
 
 ```php
 file: functions.php
+-
 
 if (WP_ENV != 'development') {
     Timber::$twig_cache = true;
@@ -60,6 +61,7 @@ In your application code, you should load the environment and vendor folder. For
 
 ```php
 file: /extensions/my_folder_name/my_app.php
+-
 
 define('WP_BASE_DIR', str_replace('/extensions/my_folder_name', '', dirname(__FILE__)) . '/');
 
