@@ -32,6 +32,11 @@ You should follow [PHP-FIG](http://www.php-fig.org/) coding styles and conventio
 
 Public Wordpress plugins should be set it the composer.json file and use [Wordpress Packagist](https://wpackagist.org/) for installation. Custom plugins or plugins that require a license and should remain private will need their own GitHub repositories. These plugins should be archived under the NewsHour account.
 
+The following plugins are included by default in the composer.json file:
+
+* Timber
+* Wordfence
+
 ### Theming
 
 Timber is the framework that you should use when developing your Wordpress theme. While Timber provides many features "out-of-the-box" to help you develop your theme within the MVC design paradigm, great care and thought still needs to go into your theme's codebase to bring MVC into WP's system. See [Timber's documentation](https://timber.github.io/docs/) for more information.
@@ -48,6 +53,10 @@ if (WP_ENV != 'development') {
     Timber::$twig_cache = true;
 }
 ```
+
+**Carbon**
+
+[Carbon](http://carbon.nesbot.com/docs/) is included as a default dependency. While not a requirement, you should utilize Carbon whenever you are handling date/time values.
 
 ### Extensions
 
