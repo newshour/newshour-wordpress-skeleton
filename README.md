@@ -26,7 +26,7 @@ When starting your theme, you should set your theme and custom plugin namespaces
 
 ### Coding Style
 
-You should follow [PHP-FIG](http://www.php-fig.org/) coding styles and conventions as closely as possible. This will help other developers and designers grok your code.
+You should follow [PHP-FIG](http://www.php-fig.org/) coding styles and conventions as closely as possible. This will help other developers grok your code and keep things organized.
 
 ### Plugins
 
@@ -34,7 +34,7 @@ Public Wordpress plugins should be set it the composer.json file and use [Wordpr
 
 ### Theming
 
-Timber is the framework that you should use to develop your Wordpress theme with. See [Timber's documentation](https://timber.github.io/docs/) for more information.
+Timber is the framework that you should use when developing your Wordpress theme. While Timber provides many features "out-of-the-box" to help you develop your theme within the MVC design paradigm, great care and thought still needs to go into your theme's codebase to bring MVC into WP's system. See [Timber's documentation](https://timber.github.io/docs/) for more information.
 
 **Twig**
 
@@ -57,7 +57,9 @@ Code that operates outside of the Wordpress domain but that still may need to in
 /extensions/my_folder_name/my_app.php
 ```
 
-In your application code, you should load the environment and vendor folder. For example:
+Classes should be appropriately namespaced and autoloaded via the composer.json file. Any dependencies needed for extensions should be declared as well in the composer.json file. In your application code, you should also load the environment (along with the primary autoload file). This will allow you to access common constants and configuration values of the main Wordpress installation and keep all dependencies to one vendor location.
+
+For example:
 
 ```php
 file: /extensions/my_folder_name/my_app.php
@@ -76,3 +78,7 @@ if (file_exists(WP_BASE_DIR . '/.env')) {
     $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD']);
 }
 ```
+
+### WP CLI
+
+The project structure is fully compatible with [WP CLI](http://wp-cli.org/).
