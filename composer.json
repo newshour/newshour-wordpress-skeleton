@@ -46,7 +46,7 @@
         "nesbot/carbon": "^1.22",
         "oscarotero/env": "^1.1.0",
         "roots/wp-password-bcrypt": "1.0.0",
-        "wpackagist-plugin/timber-library": "1.5.2",
+        "wpackagist-plugin/timber-library": "1.6.0",
         "wpackagist-plugin/wordfence": "6.3.22"
     },
     "require-dev": {
