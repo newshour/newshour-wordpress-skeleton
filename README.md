@@ -34,8 +34,8 @@ Public Wordpress plugins should be set it the composer.json file and use [Wordpr
 
 The following plugins are included by default in the composer.json file:
 
+* Advanced Custom Fields
 * Timber
-* Wordfence
 
 ### Theming
 
