@@ -4,6 +4,7 @@
     "license": "MIT",
     "description": "Wordpress project skeleton based off the Bedrock project.",
     "config": {
+        "sort-packages": true,
         "preferred-install": "dist"
     },
     "repositories": [
