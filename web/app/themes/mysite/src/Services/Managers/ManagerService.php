@@ -63,6 +63,7 @@ final class ManagerService {
         }
 
         return self::$instance;
+
     }
 
     /**
@@ -87,10 +88,11 @@ final class ManagerService {
         );
 
         return $this;
+
     }
 
     /**
-     * Undocumented function
+     * Add an array of managers.
      *
      * @param  array $classNameList
      * @return ManagerService
@@ -114,6 +116,7 @@ final class ManagerService {
         }
 
         return $this;
+
     }
 
     /**
