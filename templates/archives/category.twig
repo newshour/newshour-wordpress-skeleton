@@ -1,0 +1,22 @@
+{% extends "layouts/base.twig" %}
+
+{% block body %}
+
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ site.url }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ term.title }}</li>
+        </ol>
+    </nav>
+
+    <h1>This is a category page.</h1>
+
+    <p>These are posts categorized under <em>{{ term }}</em>.</p>
+
+    <ul class="list-unstyled">
+    {% for post in posts %}
+        <li><a href="{{ post.link }}">{{ post.title }}</a></li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}

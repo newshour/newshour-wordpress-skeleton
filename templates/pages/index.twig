@@ -1,0 +1,17 @@
+{% extends "layouts/base.twig" %}
+
+{% block body %}
+
+    <h1>Hello World</h1>
+    <p>Welcome to the NewsHour starter theme for Wordpress!</p>
+
+    <h3>Latest Posts</h3>
+    <ul class="list-unstyled">
+        {% for post in posts %}
+        <li><a href="{{ post.link }}">{{ post.title }}</a>
+        {% endfor %}
+    </ul>
+
+    <div class="mt-3 p-3 mb-3" id="hello-world"></div>
+
+{% endblock %}

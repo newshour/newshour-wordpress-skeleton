@@ -1,0 +1,29 @@
+{
+    "name": "mysite",
+    "version": "1.0.0",
+    "description": "",
+    "main": "frontend/src/js/app.js",
+    "author": "",
+    "license": "ISC",
+    "scripts": {
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "browser-sync": "^2.26.14",
+        "browser-sync-webpack-plugin": "^2.3.0",
+        "laravel-mix": "^6.0.18",
+        "postcss": "^8.2.14",
+        "postcss-css-variables": "^0.17.0",
+        "sass": "^1.32.12",
+        "sass-loader": "^11.0.1",
+        "webpack": "^5.36.2",
+        "webpack-cli": "^4.7.0"
+    },
+    "dependencies": {
+        "jquery": "^3.5.1"
+    }
+}
