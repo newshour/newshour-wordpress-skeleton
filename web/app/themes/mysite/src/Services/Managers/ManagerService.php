@@ -14,8 +14,6 @@ use WP_CLI;
 
 use Symfony\Component\HttpFoundation\Request;
 
-use Timber\Helper;
-
 use App\Themes\MySite\Contracts\Command;
 use App\Themes\MySite\Contracts\WordpressManager;
 use App\Themes\MySite\Http\Factories\RequestFactory;
@@ -77,7 +75,7 @@ final class ManagerService {
         $reflector = new ReflectionClass((string)$className);
 
         if (!$reflector->implementsInterface(WordpressManager::class)) {
-            trigger_error((string)$className . ' is not a WordpressManager.');
+            trigger_error((string)$className . ' is not a WordpressManager.', E_USER_WARNING);
             return $this;
         }
 
@@ -130,7 +128,7 @@ final class ManagerService {
         $reflector = new ReflectionClass((string)$className);
 
         if (!$reflector->implementsInterface(Command::class)) {
-            Helper::warn((string)$className . ' is not a Command.');
+            trigger_error((string)$className . ' is not a Command.', E_USER_WARNING);
             return $this;
         }
 
