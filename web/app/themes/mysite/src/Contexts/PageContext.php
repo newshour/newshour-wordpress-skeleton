@@ -18,8 +18,8 @@ class PageContext extends BaseContext {
         parent::__construct($request, $kwargs);
         parent::set('environment', WP_ENV);
 
-        if (is_singular() && isset($this->data['posts'][0])) {
-            parent::set('post', $this->data['posts'][0]);
+        if (is_singular() && is_iterable($posts = $this->offsetGet('posts'))) {
+            parent::set('post', $posts[0]);
         }
 
         // Set the page title.
