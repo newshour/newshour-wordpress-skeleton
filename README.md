@@ -1,13 +1,11 @@
 # NewsHour Wordpress Skeleton
 
-This skeleton should be used when creating Wordpress-based websites for NewsHour. It leverages [Bedrock](https://roots.io/bedrock/) for the project structure, [Composer](https://getcomposer.org/) for dependencies and [Timber](https://timber.github.io/docs/) for the theme framework.
+This skeleton should be used when creating Wordpress-based websites for NewsHour. It leverages [Bedrock](https://roots.io/bedrock/) for the project structure, [Composer](https://getcomposer.org/) for dependencies and [Timber](https://timber.github.io/docs/) for the theming.
 
-## Usage
+## Installation
 
-1. Download the skeleton into your local development environment.
-2. Run ```composer update```.
-3. Read the Timber, Bedrock and Composer docs.
-4. Start building your theme.
+1. Download and install [Composer](https://getcomposer.org/).
+2. From your terminal, run `composer create-project newshour/wp-project-skeleton path --repository "{\"type\": \"vcs\", \"url\": \"https://github.com/newshour/newshour-wordpress-skeleton\"}"`. (_path_ should be changed to your desired folder.)
 
 ## Notes
 
@@ -18,7 +16,7 @@ When starting your theme, you should set your theme and custom plugin namespaces
 ```
 "autoload": {
     "psr-4": {
-        "NewsHour\\Themes\\PBSNewsHour\\": "web/app/themes/pbs-newshour/src",
+        "App\\Themes\\MySite\\": "web/app/themes/mysite/src",
         ...
     }
 }
@@ -30,35 +28,29 @@ You should follow [PHP-FIG](http://www.php-fig.org/) coding styles and conventio
 
 ### Plugins
 
-Public Wordpress plugins should be set it the composer.json file and use [Wordpress Packagist](https://wpackagist.org/) for installation. Custom plugins or plugins that require a license and should remain private will need their own GitHub repositories. These plugins should be archived under the NewsHour account.
+Public Wordpress plugins should be set it the composer.json file and use [Wordpress Packagist](https://wpackagist.org/) for installation. Custom plugins or plugins that require a license can also be setup as repositories in the file. Please refer to the Composer documentation on how to add additional repositories.
 
 The following plugins are included by default in the composer.json file:
 
 * Advanced Custom Fields
+* Classic Editor
+* Debug Bar
 * Timber
+* WP Mail SMTP
 
 ### Theming
 
-Timber is the framework that you should use when developing your Wordpress theme. While Timber provides many features "out-of-the-box" to help you develop your theme within the MVC design paradigm, great care and thought still needs to go into your theme's codebase to bring MVC into WP's system. See [Timber's documentation](https://timber.github.io/docs/) for more information.
-
-**Twig**
-
-Timber uses Twig for its templating engine and you should enable template caching in staging and production environments.
-
-```php
-file: functions.php
--
-
-if (WP_ENV != 'development') {
-    Timber::$twig_cache = true;
-}
-```
+While the project sets up an MVC environment for you, Timber is incorprated into the project and provides functionality for rendering templates via Twig. It also creates data models for Wordpress post types.  See [Timber's documentation](https://timber.github.io/docs/) and [Twig's documentation](https://twig.symfony.com/) for more information on what all you can do with Timber and Twig.
 
 **Carbon**
 
 [Carbon](http://carbon.nesbot.com/docs/) is included as a default dependency. While not a requirement, you should utilize Carbon whenever you are handling date/time values.
 
-### Extensions
+### Commands
+
+The project structure is fully compatible with [WP CLI](http://wp-cli.org/). You can build custom commands to perform a wide variety of tasks to run under a crontab. Commands are stored in the `src/Commands/` folder and loaded by the _ManagerService_ in `functions.php` just like Controllers. See the [HelloWorldCommand](https://github.com/newshour/newshour-wordpress-skeleton/blob/master/web/app/themes/mysite/src/Commands/HelloWorldCommand.php) for an example.
+
+### Project Extensions
 
 Code that operates outside of the Wordpress domain but that still may need to interact with the environment somehow should be added to the _extensions_ folder. For example:
 
@@ -87,7 +79,3 @@ if (file_exists(WP_BASE_DIR . '/.env')) {
     $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD']);
 }
 ```
-
-### WP CLI
-
-The project structure is fully compatible with [WP CLI](http://wp-cli.org/).
