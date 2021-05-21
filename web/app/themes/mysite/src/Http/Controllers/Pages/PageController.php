@@ -35,7 +35,7 @@ class PageController extends Controller {
     public function view() {
 
         // Render our template and send it back to the client.
-        return $this->render('pages/single.twig', $this->context);
+        return $this->render('pages/page.twig', $this->context);
 
     }
 
