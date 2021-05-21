@@ -7,7 +7,7 @@
 
     <h3>Latest Posts</h3>
     <ul class="list-unstyled">
-        {% for post in posts %}
+        {% for post in latest_posts %}
         <li><a href="{{ post.link }}">{{ post.title }}</a>
         {% endfor %}
     </ul>
