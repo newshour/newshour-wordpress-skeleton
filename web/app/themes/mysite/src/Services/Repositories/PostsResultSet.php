@@ -187,6 +187,9 @@ final class PostsResultSet implements ResultSet {
 
     }
 
+    /**
+     * @return ResultSet
+     */
     public function asc(): ResultSet {
 
         return $this->order('ASC');
@@ -260,12 +263,13 @@ final class PostsResultSet implements ResultSet {
     /**
      * Fetch the latest entries by post_date.
      *
-     * @param int $limit
+     * @param int $limit - Default is `posts_per_page`.
      * @return ResultSet
      */
-    public function latest($limit = 10): ResultSet {
+    public function latest($limit = 0): ResultSet {
 
-        return $this->orderBy('post_date')->limit((int)$limit);
+        $_limit = empty($limit) ? (int)get_option('posts_per_page') : (int)$limit;
+        return $this->orderBy('post_date')->limit($_limit);
 
     }
 
