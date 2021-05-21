@@ -36,10 +36,11 @@ class HomePageController extends Controller {
     public function view() {
 
         // Fetch all the latest article posts.
-        $latestPosts = Article::objects()->filter(['posts_per_page' => 10])->orderBy('post_date')->desc()->get();
+        //$latestPosts = Article::objects()->filter(['posts_per_page' => 10])->orderBy('post_date')->desc()->get();
 
-        // This is the same as above but uses the 'posts_per_page' value set in wp_options.
-        $latestPosts = Article::objects()->latest()->get();
+        // This is the same as above but more concise. latest() uses the 'posts_per_page' value set in wp_options
+        // as the default.
+        // $latestPosts = Article::objects()->latest()->get();
 
         // The same but now we are caching the results. Note that since this relies on the internal wp_cache_*
         // functions, some caching plugins, like W3TC, may override the expiration times of the object cache.
