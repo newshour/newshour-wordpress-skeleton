@@ -14,6 +14,7 @@ class FiltersManager extends Manager {
     public function run(): void {
 
         add_action('init', [$this, 'registerInitFilters'], 1);
+        add_action('pre_get_posts', [$this, 'registerDefaultQueryFilters'], 1);
 
     }
 
@@ -42,6 +43,20 @@ class FiltersManager extends Manager {
             return $title;
 
         }, 10);
+
+    }
+
+    /**
+     * Alters the default queries made by Wordpress.
+     *
+     * @param WP_Query $query
+     * @return void
+     */
+    public function registerDefaultQueryFilters($query): void {
+
+        if (is_front_page() && $query->is_main_query()) {
+            $query->set('posts_per_page', 1);
+        }
 
     }
 
