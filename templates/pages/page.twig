@@ -1,0 +1,44 @@
+{% extends "layouts/base.twig" %}
+
+{% block body %}
+
+    <article class="mb-3">
+
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ site.url }}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ post.title }}</li>
+            </ol>
+        </nav>
+
+        <h1>{{ post.title }}</h1>
+
+        {{ post.content }}
+
+    </article>
+
+    {% if post.categories %}
+
+        <h5>These are the post's categories:</h5>
+
+        <ul class="list-inline">
+            {% for category in post.categories %}
+            <li class="list-inline-item"><a href="{{ category.link }}">{{ category }}</a></li>
+            {% endfor %}
+        </ul>
+
+    {% endif %}
+
+    {% if post.tags %}
+
+        <h5>These are the post's tags:</h5>
+
+        <ul class="list-inline">
+            {% for tag in post.tags %}
+            <li class="list-inline-item"><a href="{{ tag.link }}">{{ tag }}</a></li>
+            {% endfor %}
+        </ul>
+
+    {% endif %}
+
+{% endblock %}
