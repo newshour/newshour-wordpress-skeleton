@@ -6,13 +6,19 @@ This skeleton should be used when creating Wordpress-based websites for NewsHour
 
 1. Download and install [Composer](https://getcomposer.org/).
 2. From your terminal, run `composer create-project newshour/wp-project-skeleton path --repository "{\"type\": \"vcs\", \"url\": \"https://github.com/newshour/newshour-wordpress-skeleton\"}"`. (_path_ should be changed to your desired folder.)
+3. Set your local web server's document root to the `/web` folder.
+4. Login to the Wordpress Admin and enabled all plugins.
+5. Select "CoreTheme" as the theme under "Appearances".
+
+### Docker
+
+You can also run this project with Docker: `docker-compose up`
 
 ## Notes
 
 ### Autoloading
 
 The theme is namespaced and classes are set to autoload in composer.json. Any custom plugin should be namespaced and set in composer.json as well.
-
 
 ```
 "autoload": {
