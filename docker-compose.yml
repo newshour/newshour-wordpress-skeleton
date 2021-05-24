@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+    db:
+        image: mysql:5.7
+        environment:
+            MYSQL_DATABASE: ${DB_NAME}
+            MYSQL_USER: ${DB_USER}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PORT: 3306
+            MYSQL_RANDOM_ROOT_PASSWORD: 1
+            MYSQL_ONETIME_PASSWORD: 1
+        volumes:
+            - db_data:/var/lib/mysql
+
+    app:
+        image: wp-project-skeleton
+        restart: always
+        build:
+            context: .
+        environment:
+            DB_HOST: db
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - .:/home/app/wordpress
+            - config:/home/app/wordpress/config
+            - node_modules:/home/app/wordpress/node_modules
+            - vendor:/home/app/wordpress/vendor
+            - web:/home/app/wordpress/web
+
+volumes:
+    db_data:
+    config:
+    node_modules:
+    vendor:
+    web:
