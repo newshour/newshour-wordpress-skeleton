@@ -11,7 +11,8 @@ This skeleton should be used when creating Wordpress-based websites for NewsHour
 
 ### Autoloading
 
-When starting your theme, you should set your theme and custom plugin namespaces in the compser.json file. For example:
+The theme is namespaced and classes are set to autoload in composer.json. Any custom plugin should be namespaced and set in composer.json as well.
+
 
 ```
 "autoload": {
@@ -24,7 +25,7 @@ When starting your theme, you should set your theme and custom plugin namespaces
 
 ### Coding Style
 
-You should follow [PHP-FIG](http://www.php-fig.org/) coding styles and conventions as closely as possible. This will help other developers grok your code and keep things organized.
+You should follow [PHP-FIG](http://www.php-fig.org/) coding styles and conventions as closely as possible. This will help other developers grok your code and keep things organized. The theme's standard is set to PSR-1.
 
 ### Plugins
 
