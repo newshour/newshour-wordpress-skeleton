@@ -16,7 +16,7 @@ When starting your theme, you should set your theme and custom plugin namespaces
 ```
 "autoload": {
     "psr-4": {
-        "App\\Themes\\MySite\\": "web/app/themes/mysite/src",
+        "App\\Themes\\CoreTheme\\": "web/app/themes/core/src",
         ...
     }
 }

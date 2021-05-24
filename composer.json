@@ -57,7 +57,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\Themes\\MySite\\": "web/app/themes/mysite/src"
+            "App\\Themes\\CoreTheme\\": "web/app/themes/core/src"
         }
     }
 }
