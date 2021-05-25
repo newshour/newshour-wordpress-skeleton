@@ -19,7 +19,9 @@ class RoutesManager extends Manager {
      */
     public function run(): void {
 
-        add_action('init', [$this, 'routes'], 1);
+        if (!is_admin()) {
+            add_action('init', [$this, 'routes'], 1);
+        }
 
     }
 

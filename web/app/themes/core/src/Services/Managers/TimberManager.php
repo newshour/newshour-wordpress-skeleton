@@ -54,7 +54,9 @@ class TimberManager extends Manager {
      */
     public function run(): void {
 
-        $this->initializeTimber();
+        if (!is_admin()) {
+            $this->initializeTimber();
+        }
 
         add_action('init', [$this, 'registerInitFilters']);
 
