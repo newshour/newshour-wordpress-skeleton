@@ -48,7 +48,19 @@ final class ManagerService {
 
             // Make sure Timber exists.
             if (!class_exists('Timber')) {
-                trigger_error('Timber not found. Please enable the Timber plugin.', E_USER_ERROR);
+
+                if (is_admin()) {
+
+                    add_action('admin_notices', function() {
+                        echo '<div class="notice notice-error"><p>Timber must be activated before using this theme.</p></div>';
+                    });
+
+                } else {
+
+                    trigger_error('Timber has not been activated.', E_USER_ERROR);
+
+                }
+
             }
 
             // Make sure WP_HOME exists.
