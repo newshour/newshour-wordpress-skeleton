@@ -53,6 +53,24 @@ While the project sets up an MVC environment for you, Timber is incorprated into
 
 [Carbon](http://carbon.nesbot.com/docs/) is included as a default dependency. While not a requirement, you should utilize Carbon whenever you are handling date/time values.
 
+## MVC
+
+**Controllers**
+
+The theme is structured into Models (setup via Timber class mappings), Views (templates in our case) and Controllers. Traditional Wordpress "template" parts (e.g. single.php) act as entry points from which to launch desired Controller classes. Each Controller class is passed a Context object which contains initial data (such as the initial Post object) and a Request object (`$controller->getRequest()`). Different Context classes can be create and passed depending on the needs of the Controller/route. For example, if you have a Controller/route which loads RSS feeds, you may wish to create a specific RSS Context class.
+
+**Models**
+
+Models are created by extending the `CorePost` class (which in turn extends Timber's Post class). Model classes can be mapped to different post types which can then be loaded by Timber in `App\Themes\CoreTheme\Services\Managers\TimberManager::classMap()`. Model classes can use the trait `Queryable` to provide a fluent API for data fetching. For example, to fetch the latest posts for a given model:
+
+```php
+Model::objects()->latest(10)->get();
+```
+
+**Views**
+
+From a Controller, Twig templates can be loaded and passed Context objects which contain all of the data needed to render the "view".
+
 ### Commands
 
 The project structure is fully compatible with [WP CLI](http://wp-cli.org/). You can build custom commands to perform a wide variety of tasks to run under a crontab. Commands are stored in the `src/Commands/` folder and loaded by the _ManagerService_ in `functions.php` just like Controllers. See the [HelloWorldCommand](https://github.com/newshour/newshour-wordpress-skeleton/blob/master/web/app/themes/mysite/src/Commands/HelloWorldCommand.php) for an example.
