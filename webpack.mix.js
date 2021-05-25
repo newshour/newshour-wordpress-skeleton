@@ -21,6 +21,6 @@ mix
 .version()
 .browserSync({
     files: ['./' + srcDir + '/**/*.+(css|js)', '*.html'],
-    proxy: 'http://skeleton.localhost/',
+    proxy: 'http://localhost/',
     reload: false
 });
