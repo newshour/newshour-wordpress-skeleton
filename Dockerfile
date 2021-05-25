@@ -46,7 +46,8 @@ RUN set -eux; \
     rm -rf /var/lib/apt/lists/*
 
 # Needed for socket address
-RUN mkdir -p /run/php
+RUN mkdir -p /run/php && \
+    mkdir -p /opt/wp-project-skeleton
 
 COPY --chown=www-data:www-data . /opt/wp-project-skeleton
 WORKDIR /opt/wp-project-skeleton
@@ -60,10 +61,10 @@ COPY docker/conf/apache/sites-available/default.conf /etc/apache2/sites-availabl
 COPY docker/conf/apache/conf-available/* /etc/apache2/conf-available/
 
 # Run scripts
-COPY ./docker/scripts /opt/wp-project-skeleton/docker/scripts
-RUN chmod u+x /opt/wp-project-skeleton/docker/scripts/launch.sh && \
-    chmod u+x /opt/wp-project-skeleton/docker/scripts/setup.sh && \
-    /opt/wp-project-skeleton/docker/scripts/setup.sh "${APP_ENV}" "${PHP_VER}"
+COPY ./docker/scripts /opt/docker/scripts
+RUN chmod u+x /opt/docker/scripts/launch.sh && \
+    chmod u+x /opt/docker/scripts/setup.sh && \
+    /opt/docker/scripts/setup.sh "${APP_ENV}" "${PHP_VER}"
 
 # Cleanup
 RUN apt-get purge -q -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
@@ -73,5 +74,5 @@ RUN apt-get purge -q -y --auto-remove -o APT::AutoRemove::RecommendsImportant=fa
 EXPOSE 443 80
 
 # Launch apache + php-fpm
-ENTRYPOINT ["/opt/wp-project-skeleton/docker/scripts/launch.sh"]
+ENTRYPOINT ["/opt/docker/scripts/launch.sh"]
 CMD ["7.4"]
