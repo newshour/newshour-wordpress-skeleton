@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Timber\Timber;
 
 use App\Themes\CoreTheme\Http\Models\Article;
+use App\Themes\CoreTheme\Http\Models\Page;
 
 /**
  * Bootstraps Timber settings and filters. Set custom post type class mappings
@@ -33,7 +34,7 @@ class TimberManager extends Manager {
     public function __toString(): string {
 
         return sprintf(
-            '% [class maps] %s', self::class, http_build_query(self::classMap())
+            '%s [class maps] %s', self::class, http_build_query(self::classMap())
         );
 
     }
@@ -47,6 +48,7 @@ class TimberManager extends Manager {
     public static function classMap(): array {
 
         return [
+            'page' => Page::class,
             'post' => Article::class
         ];
 

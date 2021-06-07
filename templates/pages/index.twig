@@ -12,6 +12,13 @@
         {% endfor %}
     </ul>
 
+    <h3>Latest Pages</h3>
+    <ul class="list-unstyled">
+        {% for page in latest_pages %}
+        <li><a href="{{ page.link }}">{{ page.title }}</a>
+        {% endfor %}
+    </ul>
+
     <div class="mt-3 p-3 mb-3" id="hello-world"></div>
 
 {% endblock %}

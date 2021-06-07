@@ -9,6 +9,7 @@ namespace App\Themes\CoreTheme\Http\Controllers\Home;
 use App\Themes\CoreTheme\Contracts\Context;
 use App\Themes\CoreTheme\Http\Controllers\Controller;
 use App\Themes\CoreTheme\Http\Models\Article;
+use App\Themes\CoreTheme\Http\Models\Page;
 
 /**
  * A home page controller.
@@ -50,6 +51,9 @@ class HomePageController extends Controller {
 
         // Let's pass them to the template.
         $this->context['latest_posts'] = $latestPosts;
+
+        // Fetch all the pages.
+        $this->context['latest_pages'] = Page::objects()->latest()->get();
 
         // Render our template and send it back to the client.
         return $this->render('pages/index.twig', $this->context);
