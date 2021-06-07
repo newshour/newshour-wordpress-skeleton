@@ -17,10 +17,10 @@ use App\Themes\CoreTheme\Contracts\Context;
 class BaseContext implements ArrayAccess, Context, Countable {
 
     // Context data dictionary.
-    private $data = [];
+    private array $data = [];
 
     // Symfony request object.
-    private $request;
+    private Request $request;
 
     /**
      * Pass optional keyword args.

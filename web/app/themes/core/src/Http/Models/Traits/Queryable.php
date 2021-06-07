@@ -60,6 +60,14 @@ trait Queryable {
     /**
      * Returns the ResultSet class in use.
      *
+     * A model can define its own ResultSet class by setting the following
+     * constant:
+     *
+     * `public const RESULT_SET_CLASS = SomeCustomResultSetClass::class;`
+     *
+     * Defaults to PostsResultSet::class.
+     *
+     * @see PostsResultSet
      * @return string
      */
     public static function getResultSetClass(): string {

@@ -15,7 +15,7 @@ use App\Themes\CoreTheme\Contracts\WordpressManager;
 abstract class Manager implements WordpressManager {
 
     // Request object.
-    private $request;
+    private Request $request;
 
     /**
      * @param Request $request

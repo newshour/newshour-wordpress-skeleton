@@ -21,10 +21,10 @@ use App\Themes\CoreTheme\Http\Factories\RequestFactory;
 final class ManagerService {
 
     // SplObjectStorage
-    private $managers;
+    private SplObjectStorage $managers;
 
     // Request object.
-    private $request;
+    private Request $request;
 
     // The singleton
     private static $instance;

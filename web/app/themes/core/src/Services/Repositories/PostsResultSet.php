@@ -20,16 +20,16 @@ use Timber\PostQuery;
 final class PostsResultSet implements ResultSet {
 
     // Stores the cache expires time in seconds. -1 is no cache, 0 is cache forever.
-    private $cacheInSeconds = -1;
+    private int $cacheInSeconds = -1;
 
     // The model class that Timber will use to instantiate.
-    private $postClass = '';
+    private string $postClass = '';
 
     // Stores the query params.
-    private $queryParams = [];
+    private array $queryParams = [];
 
     // Stores the data.
-    private $data = [];
+    private array $data = [];
 
     /**
      * @param string $postClass
@@ -84,6 +84,7 @@ final class PostsResultSet implements ResultSet {
      * Returns the result set array based on the set query params.
      * This method will hit the database.
      *
+     * @category Database Read
      * @return array
      */
     public function get(): array {
@@ -120,6 +121,7 @@ final class PostsResultSet implements ResultSet {
     /**
      * Retrieve only the first result. This method will hit the database.
      *
+     * @category Database Read
      * @return array
      */
     public function first(): array {
@@ -132,6 +134,7 @@ final class PostsResultSet implements ResultSet {
      * Returns a slice of the collection starting at the given index.
      * Similar to Laravel's slice(). This method will hit the database.
      *
+     * @category Database Read
      * @param int $start
      * @return array
      */
@@ -150,7 +153,8 @@ final class PostsResultSet implements ResultSet {
     /**
      * Shuffles (and slices) the result set. This method will hit the database.
      *
-     * @param integer $andSlice - optional
+     * @category Database Read
+     * @param integer $andSlice Optional
      * @return array
      */
     public function shuffle($andSlice = 0): array {
@@ -299,7 +303,7 @@ final class PostsResultSet implements ResultSet {
     }
 
     /**
-     * Undocumented function
+     * Sets cache expires to indefinite. Same as cache(0).
      *
      * @return ResultSet
      */
@@ -346,8 +350,8 @@ final class PostsResultSet implements ResultSet {
     /**
      * Sets the `paged` parameter and sets `no_found_rows` to false.
      *
-     * @param [type] $num
-     * @return void
+     * @param int $num
+     * @return ResultSet
      */
     public function page($num): ResultSet {
 

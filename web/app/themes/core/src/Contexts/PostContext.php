@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 class PostContext extends BaseContext {
 
     /**
+     * @param Request $request
      * @param array $kwargs
      */
     public function __construct(Request $request, array $kwargs = []) {

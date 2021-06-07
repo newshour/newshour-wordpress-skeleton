@@ -12,7 +12,7 @@ use Timber\TextHelper;
 abstract class CorePost extends Post {
 
     // Storage for categories and tags.
-    private $storage = [];
+    private array $storage = [];
 
     /**
      * Get the post excerpt.
