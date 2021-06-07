@@ -271,7 +271,17 @@ final class PostsResultSet implements ResultSet {
     public function filter(array $params): ResultSet {
 
         if (isset($params['post_type'])) {
+
             unset($params['post_type']);
+
+            trigger_error(
+                sprintf(
+                    'You cannot filter on a different "post type". %s maps to "%s".',
+                    $this->postClass,
+                    $this->queryParams['post_type']
+                )
+            );
+
         }
 
         $this->queryParams = array_merge($this->queryParams, $params);
