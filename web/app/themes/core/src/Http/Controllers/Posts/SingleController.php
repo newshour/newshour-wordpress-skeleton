@@ -1,14 +1,17 @@
 <?php
+
 /**
- * A controller for single posts.
- *
  * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Http\Controllers\Posts;
 
 use App\Themes\CoreTheme\Contracts\Context;
 use App\Themes\CoreTheme\Http\Controllers\Controller;
 
+/**
+ * A controller for single posts.
+ */
 class SingleController extends Controller {
 
     // The Context object.

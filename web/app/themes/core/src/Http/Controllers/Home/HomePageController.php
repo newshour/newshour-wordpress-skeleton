@@ -1,15 +1,18 @@
 <?php
+
 /**
- * A home page controller.
- *
  * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Http\Controllers\Home;
 
 use App\Themes\CoreTheme\Contracts\Context;
 use App\Themes\CoreTheme\Http\Controllers\Controller;
 use App\Themes\CoreTheme\Http\Models\Article;
 
+/**
+ * A home page controller.
+ */
 class HomePageController extends Controller {
 
     // The Context object.

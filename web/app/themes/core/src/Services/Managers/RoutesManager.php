@@ -1,10 +1,9 @@
 <?php
+
 /**
- * Sets up custom routes. Heads up: be careful not to setup routes
- * that conflict with interal WP routes.
- *
  * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Services\Managers;
 
 use Routes;
@@ -12,6 +11,10 @@ use Routes;
 use App\Themes\CoreTheme\Http\Controllers\FrontController;
 use App\Themes\CoreTheme\Http\Controllers\Ajax\AjaxController;
 
+/**
+ * Sets up custom routes. Heads up: be careful not to setup routes
+ * that conflict with interal WP routes.
+ */
 class RoutesManager extends Manager {
 
     /**

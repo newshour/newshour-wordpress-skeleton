@@ -1,17 +1,22 @@
 <?php
+
 /**
- * Managers encapsulate Wordpress filters/actions and perform any other needed
- * intialization tasks. This allows you to store all of your fitler/action
- * callbacks into organized units.
- *
  * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Services\Managers;
 
 use Symfony\Component\HttpFoundation\Request;
 
 use App\Themes\CoreTheme\Contracts\WordpressManager;
 
+/**
+ * Managers encapsulate Wordpress filters/actions and perform any other needed
+ * intialization tasks. This allows you to store all of your fitler/action
+ * callbacks into organized units.
+ *
+ * @abstract
+ */
 abstract class Manager implements WordpressManager {
 
     // Request object.

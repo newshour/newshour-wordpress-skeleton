@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * @version 1.0.0
+ */
+
+namespace App\Themes\CoreTheme\Services\Managers;
+
+use WP_Error;
+
 /**
  * Bootstraps WordPress theme related functions, most importantly enqueuing
  * javascript and styles. Automatic feed and JSON endpoints are also disabled
@@ -8,17 +17,11 @@
  * A note on automatic feeds: by default, WP enables RSS feed endpoints for just
  * about everything. This is often undesirable and better control can be achieved
  * by creating a specific feed route(s) (in RoutesManager), controller and context
- * classes. This will allow you to create context-specific feeds and give much
+ * classes. This will allow you to create context-specific feeds and give you much
  * more fine grain control over your feeds. For example, you can create different
  * feeds for different services that are consuming the feeds, public/private feeds,
  * etc.
- *
- * @version 1.0.0
  */
-namespace App\Themes\CoreTheme\Services\Managers;
-
-use WP_Error;
-
 class ThemeManager extends Manager {
 
     /**

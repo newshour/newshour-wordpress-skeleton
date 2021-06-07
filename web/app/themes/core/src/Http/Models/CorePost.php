@@ -1,14 +1,19 @@
 <?php
+
 /**
- * An abstract parent class for Model classes.
- *
  * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Http\Models;
 
 use Timber\Post;
 use Timber\TextHelper;
 
+/**
+ * An abstract parent class for Model classes.
+ *
+ * @abstract
+ */
 abstract class CorePost extends Post {
 
     // Storage for categories and tags.

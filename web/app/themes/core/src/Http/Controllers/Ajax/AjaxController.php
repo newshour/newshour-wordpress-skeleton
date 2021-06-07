@@ -1,15 +1,18 @@
 <?php
+
 /**
- * A controller for AJAX requests. See the RoutesManager class for
- * setting up AJAX routes.
- *
  * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Http\Controllers\Ajax;
 
 use App\Themes\CoreTheme\Contracts\Context;
 use App\Themes\CoreTheme\Http\Controllers\Controller;
 
+/**
+ * A controller for AJAX requests. See the RoutesManager class for
+ * setting up AJAX routes.
+ */
 class AjaxController extends Controller {
 
     // The Context object.

@@ -1,16 +1,22 @@
 <?php
+
+/**
+ * @version 1.0.0
+ */
+
+namespace App\Themes\CoreTheme\Contexts;
+
+use Symfony\Component\HttpFoundation\Request;
+
 /**
  * Provides a context object for Wordpress pages.
  *
  * @version 1.0.0
  */
-namespace App\Themes\CoreTheme\Contexts;
-
-use Symfony\Component\HttpFoundation\Request;
-
 class PageContext extends BaseContext {
 
     /**
+     * @param Request $request
      * @param array $kwargs
      */
     public function __construct(Request $request, array $kwargs = []) {

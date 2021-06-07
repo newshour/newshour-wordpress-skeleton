@@ -1,14 +1,17 @@
 <?php
+
 /**
- * A controller for pages.
- *
  * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Http\Controllers\Pages;
 
 use App\Themes\CoreTheme\Contracts\Context;
 use App\Themes\CoreTheme\Http\Controllers\Controller;
 
+/**
+ * A controller for pages.
+ */
 class PageController extends Controller {
 
     // The Context object.

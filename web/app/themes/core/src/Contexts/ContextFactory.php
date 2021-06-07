@@ -1,9 +1,9 @@
 <?php
+
 /**
  * Factory class for creating Context objects.
- *
- * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Contexts;
 
 use Timber\Timber;
@@ -11,18 +11,24 @@ use Timber\Timber;
 use App\Themes\CoreTheme\Contracts\Context;
 use App\Themes\CoreTheme\Http\Factories\RequestFactory;
 
+/**
+ * Factory class for creating Context objects.
+ *
+ * @final
+ */
 final class ContextFactory {
 
     /**
      * Returns the default context object depending on WP's "template type". If
      * an AJAX request is detected, AjaxContext is returned.
      *
-     * single-*.php > post
-     * front-page.php > page
-     * page.php > page
+     * - single-*.php > PostContext
+     * - front-page.php > PageContext
+     * - page.php > PageContext
+     *
      * etc...
      *
-     * Defaults to page.
+     * Defaults to PageContext.
      *
      * @return Context
      */

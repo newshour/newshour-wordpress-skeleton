@@ -1,10 +1,6 @@
 <?php
 
 /**
- * Retrieves the Request object. The Request object is a singleton created
- * by using PHP's super globals.
- *
- * @see https://symfony.com/doc/current/components/http_foundation.html#request
  * @version 1.0.0
  */
 
@@ -12,6 +8,12 @@ namespace App\Themes\CoreTheme\Http\Factories;
 
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Retrieves the Request object. The Request object is a singleton created
+ * by using PHP's super globals.
+ *
+ * @see https://symfony.com/doc/current/components/http_foundation.html#request
+ */
 final class RequestFactory {
 
     private static $instance;

@@ -1,10 +1,9 @@
 <?php
+
 /**
- * Provides a base context object and calls Timber::context(). All Context
- * implementations should extend from this base Context.
- *
  * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Contexts;
 
 use ArrayAccess;
@@ -14,6 +13,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 use App\Themes\CoreTheme\Contracts\Context;
 
+/**
+ * Provides a base context object and calls Timber::context(). All Context
+ * implementations should extend from this base Context.
+ */
 class BaseContext implements ArrayAccess, Context, Countable {
 
     // Context data dictionary.

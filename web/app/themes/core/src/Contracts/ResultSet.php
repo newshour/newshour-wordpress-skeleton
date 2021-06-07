@@ -1,11 +1,14 @@
 <?php
+
 /**
- * ResultSets provide a fluent interface to fetching data.
- *
  * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Contracts;
 
+/**
+ * ResultSets provide a fluent interface to fetching data.
+ */
 interface ResultSet {
 
     /**

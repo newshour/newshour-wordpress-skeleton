@@ -1,13 +1,16 @@
 <?php
+
 /**
- * Provides a context object for Wordpress posts.
- *
  * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Contexts;
 
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Provides a context object for Wordpress posts.
+ */
 class PostContext extends BaseContext {
 
     /**

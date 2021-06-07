@@ -1,9 +1,9 @@
 <?php
+
 /**
- * A controller for tag pages.
- *
  * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Http\Controllers\Archives;
 
 use Timber\Term;
@@ -11,6 +11,9 @@ use Timber\Term;
 use App\Themes\CoreTheme\Contracts\Context;
 use App\Themes\CoreTheme\Http\Controllers\Controller;
 
+/**
+ * A controller for tag pages.
+ */
 class TagPageController extends Controller {
 
     // The Context object.

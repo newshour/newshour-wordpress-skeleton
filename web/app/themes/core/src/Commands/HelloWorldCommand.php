@@ -1,23 +1,29 @@
 <?php
+
 /**
- * This is an example WP CLI command. All commands must be registered in the bootstrapper
- * in functions.php. To run, open your terminal and type the following command from the
- * project root:
- *
- * wp hello-world
- *
- * To see what all you can do with commands, please visit the WP CLI documentation site
- * @ https://wp-cli.org/.
- *
- * To run commands as cron jobs, you will need to provide full paths to the crontab. e.g.:
- *
- * php /usr/local/bin/wp hello-world --path=/path/to/wordpress/web/wp > /dev/null 2>&1
+ * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Commands;
 
 use WP_CLI;
+
 use App\Themes\CoreTheme\Contracts\Command;
 
+/**
+ * This is an example WP CLI command. All commands must be registered in the bootstrapper
+ * in functions.php. To run, open your terminal and type the following command from the
+ * project root: `wp hello-world`
+ *
+ * To see what all you can do with commands, please visit the WP CLI documentation site
+ * @ [https://wp-cli.org/](https://wp-cli.org/).
+ *
+ * To run commands as cron jobs, you will need to provide full paths to the crontab. e.g.:
+ *
+ * ```
+ * php /usr/local/bin/wp hello-world --path=/path/to/wordpress/web/wp > /dev/null 2>&1
+ * ```
+ */
 class HelloWorldCommand implements Command {
 
     public const COMMAND_NAME = 'hello-world';

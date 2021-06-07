@@ -1,9 +1,9 @@
 <?php
+
 /**
- * The parent Controller class.
- *
  * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Http\Controllers;
 
 use InvalidArgumentException;
@@ -17,6 +17,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 use App\Themes\CoreTheme\Contracts\Context;
 
+/**
+ * The parent Controller class.
+ *
+ * @abstract
+ */
 abstract class Controller {
 
     /**

@@ -1,10 +1,9 @@
 <?php
+
 /**
- * Bootstraps Timber settings and filters. Set custom post type class mappings
- * in self::classMap().
- *
  * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Services\Managers;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +12,10 @@ use Timber\Timber;
 
 use App\Themes\CoreTheme\Http\Models\Article;
 
+/**
+ * Bootstraps Timber settings and filters. Set custom post type class mappings
+ * in self::classMap().
+ */
 class TimberManager extends Manager {
 
     /**

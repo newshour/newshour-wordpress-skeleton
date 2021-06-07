@@ -1,9 +1,9 @@
 <?php
+
 /**
- * Adds data fetching methods to Model classes.
- *
  * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Http\Models\Traits;
 
 use ReflectionClass;
@@ -13,6 +13,9 @@ use App\Themes\CoreTheme\Services\Managers\TimberManager;
 use App\Themes\CoreTheme\Services\Repositories\PostsResultSet;
 use App\Themes\CoreTheme\Contracts\ResultSet;
 
+/**
+ * Adds data fetching methods to Model classes.
+ */
 trait Queryable {
 
     /**

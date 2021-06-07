@@ -1,10 +1,8 @@
 <?php
 /**
- * Loads controller classes from the Wordpress "template" files. e.g. single.php,
- * single-some-post-type.php, page.php, etc.
- *
  * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Http\Controllers;
 
 use Exception;
@@ -17,6 +15,12 @@ use App\Themes\CoreTheme\Contracts\Context;
 use App\Themes\CoreTheme\Contexts\ContextFactory;
 use App\Themes\CoreTheme\Http\Controllers\Controller;
 
+/**
+ * Loads controller classes from the Wordpress "template" files. e.g. single.php,
+ * single-some-post-type.php, page.php, etc.
+ *
+ * @final
+ */
 final class FrontController {
 
     /**

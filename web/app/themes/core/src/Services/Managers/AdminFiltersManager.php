@@ -1,13 +1,16 @@
 <?php
+
 /**
- * Bootstraps custom Wordpress admin filters.
- *
  * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Services\Managers;
 
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Bootstraps custom Wordpress admin filters.
+ */
 class AdminFiltersManager extends Manager {
 
     /**

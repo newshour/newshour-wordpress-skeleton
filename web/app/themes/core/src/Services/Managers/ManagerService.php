@@ -1,10 +1,9 @@
 <?php
+
 /**
- * Provides a service for adding new manager classes. This service is run
- * in functions.php.
- *
  * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Services\Managers;
 
 use ReflectionClass;
@@ -18,6 +17,12 @@ use App\Themes\CoreTheme\Contracts\Command;
 use App\Themes\CoreTheme\Contracts\WordpressManager;
 use App\Themes\CoreTheme\Http\Factories\RequestFactory;
 
+/**
+ * Provides a service for adding new manager classes. This service is run
+ * in functions.php.
+ *
+ * @final
+ */
 final class ManagerService {
 
     // SplObjectStorage

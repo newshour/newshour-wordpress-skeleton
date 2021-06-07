@@ -1,11 +1,14 @@
 <?php
+
 /**
- * Bootstraps custom Wordpress filters.
- *
  * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Services\Managers;
 
+/**
+ * Bootstraps custom Wordpress filters.
+ */
 class FiltersManager extends Manager {
 
     /**

@@ -1,22 +1,32 @@
 <?php
+
 /**
- * Provides a fluent interface for fetching data from WP. For example, to retrieve the
- * 10 latest posts of a give Model class:
- *
- * Model::objects()->filter(['posts_per_page' => 10])->orderBy('post_date')->desc()->get();
- *
- * or even more concise:
- *
- * Model::objects()->latest()->get();
- *
  * @version 1.0.0
  */
+
 namespace App\Themes\CoreTheme\Services\Repositories;
 
 use App\Themes\CoreTheme\Contracts\ResultSet;
 
 use Timber\PostQuery;
 
+/**
+ * Provides a fluent interface for fetching data from WP.
+ *
+ * For example, to retrieve the 10 latest posts of a given Model class:
+ *
+ * ```
+ * Model::objects()->filter(['posts_per_page' => 10])->orderBy('post_date')->desc()->get();
+ * ```
+ *
+ * or even more concise:
+ *
+ * ```
+ * Model::objects()->latest()->get();
+ * ```
+ *
+ * @final
+ */
 final class PostsResultSet implements ResultSet {
 
     // Stores the cache expires time in seconds. -1 is no cache, 0 is cache forever.
