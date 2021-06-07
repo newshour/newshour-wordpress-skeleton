@@ -33,30 +33,7 @@ trait Queryable {
             );
         }
 
-        $methodReflector = new ReflectionMethod($resultSet, 'factory');
-
-        // Get Timber's PostClassMap.
-        $postClasses = TimberManager::classMap();
-
-        // ...now check if our Model was registered so that we can pass the
-        // post_type as an initial param. All custom post types should be
-        // registered here so that Timber knows how to cast the appropriate
-        // model class.
-        if (is_array($postClasses)) {
-
-            $table = array_flip($postClasses);
-
-            if (!empty($table[self::class])) {
-                return $methodReflector->invoke(
-                    null,
-                    self::class,
-                    ['post_type' => $table[self::class]]
-                );
-            }
-
-        }
-
-        return $methodReflector->invoke(null, self::class);
+        return (new ReflectionMethod($resultSet, 'factory'))->invoke(null, self::class);
 
     }
 

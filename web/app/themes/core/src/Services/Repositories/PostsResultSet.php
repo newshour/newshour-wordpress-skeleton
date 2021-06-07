@@ -6,9 +6,10 @@
 
 namespace App\Themes\CoreTheme\Services\Repositories;
 
-use App\Themes\CoreTheme\Contracts\ResultSet;
-
 use Timber\PostQuery;
+
+use App\Themes\CoreTheme\Contracts\ResultSet;
+use App\Themes\CoreTheme\Services\Managers\TimberManager;
 
 /**
  * Provides a fluent interface for fetching data from WP.
@@ -50,13 +51,13 @@ final class PostsResultSet implements ResultSet {
         $initial = [
             'order' => 'DESC',
             'orderby' => 'ID',
-            'post_type' => 'post',
             'post_status' => 'publish',
             'no_found_rows' => true
         ];
 
         $this->postClass = empty($postClass) ? '\Timber\Post' : $postClass;
         $this->queryParams = array_merge($initial, $queryParams);
+        $this->queryParams['post_type'] = $this->getPostTypeValue($postClass);
 
     }
 
@@ -269,7 +270,11 @@ final class PostsResultSet implements ResultSet {
      */
     public function filter(array $params): ResultSet {
 
-        $this->queryParams = array_merge($params, $this->queryParams);
+        if (isset($params['post_type'])) {
+            unset($params['post_type']);
+        }
+
+        $this->queryParams = array_merge($this->queryParams, $params);
         return $this;
 
     }
@@ -371,6 +376,30 @@ final class PostsResultSet implements ResultSet {
         }
 
         return $this;
+
+    }
+
+    /**
+     * Get the post type mapping value. Defaults to 'post' if mapping not found.
+     *
+     * @param string $postClass
+     * @return string
+     */
+    private function getPostTypeValue($postClass): string {
+
+        $postClasses = TimberManager::classMap();
+
+        if (is_array($postClasses)) {
+
+            $table = array_flip($postClasses);
+
+            if (!empty($table[$postClass])) {
+                return $table[$postClass];
+            }
+
+        }
+
+        return 'post';
 
     }
 
