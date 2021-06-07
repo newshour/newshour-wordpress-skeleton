@@ -20,7 +20,7 @@ You can also run this project with Docker: `docker-compose up`
 
 ### Autoloading
 
-The theme is namespaced and classes are set to autoload in composer.json. Any custom plugin should be namespaced and set in composer.json as well.
+The theme is namespaced and classes are set to autoload in composer.json. Any custom plugin(s) should be namespaced and set in composer.json as well.
 
 ```
 "autoload": {
@@ -34,6 +34,11 @@ The theme is namespaced and classes are set to autoload in composer.json. Any cu
 ### Coding Style
 
 You should follow [PHP-FIG](http://www.php-fig.org/) coding styles and conventions as closely as possible. This will help other developers grok your code and keep things organized. The theme's standard is set to PSR-1.
+
+### Documentation
+
+You can build documentation pages by installing [phpDocumentor](https://phpdoc.org/) and running `phpdoc` from the root
+project folder. The documentation pages will become available at `localhost/docs`.
 
 ### Plugins
 
@@ -84,10 +89,10 @@ file: <theme_dir>src/Http/Controllers/Home/HomePageController.php
 
 ...
 public function view() {
-   
+
     // Render our template and send it back to the client.
     return $this->render('pages/index.twig', $this->context);
-    
+
 }
 ```
 
