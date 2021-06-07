@@ -13,10 +13,7 @@ use App\Themes\CoreTheme\Http\Controllers\Controller;
 class AjaxController extends Controller {
 
     // The Context object.
-    private $context;
-
-    // The Request object.
-    private $request;
+    private Context $context;
 
     public function __construct(Context $context) {
 
@@ -25,7 +22,6 @@ class AjaxController extends Controller {
         }
 
         $this->context = $context;
-        $this->request = $context->getRequest();
 
     }
 

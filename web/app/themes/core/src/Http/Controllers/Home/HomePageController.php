@@ -13,10 +13,7 @@ use App\Themes\CoreTheme\Http\Models\Article;
 class HomePageController extends Controller {
 
     // The Context object.
-    private $context;
-
-    // The Request object.
-    private $request;
+    private Context $context;
 
     /**
      * @param Context $context
@@ -24,7 +21,6 @@ class HomePageController extends Controller {
     public function __construct(Context $context) {
 
         $this->context = $context;
-        $this->request = $context->getRequest();
 
     }
 
@@ -34,6 +30,9 @@ class HomePageController extends Controller {
      * @return boolean
      */
     public function view() {
+
+        // You can retrieve the request object this way:
+        $request = $this->context->getRequest();
 
         // Fetch all the latest article posts.
         //$latestPosts = Article::objects()->filter(['posts_per_page' => 10])->orderBy('post_date')->desc()->get();

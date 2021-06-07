@@ -12,10 +12,7 @@ use App\Themes\CoreTheme\Http\Controllers\Controller;
 class SingleController extends Controller {
 
     // The Context object.
-    private $context;
-
-    // The Request object.
-    private $request;
+    private Context $context;
 
     /**
      * @param Context $context
@@ -23,8 +20,6 @@ class SingleController extends Controller {
     public function __construct(Context $context) {
 
         $this->context = $context;
-        $this->request = $context->getRequest();
-
     }
 
     /**
