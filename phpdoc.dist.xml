@@ -1,0 +1,13 @@
+<phpdocumentor configVersion="3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpdoc.org">
+    <title>NewsHour Wordpress Skeleton</title>
+    <paths>
+        <output>web/docs</output>
+    </paths>
+    <version number="latest">
+        <api>
+            <source dsn="./web/app/themes">
+                <path>core</path>
+            </source>
+        </api>
+    </version>
+</phpdocumentor>

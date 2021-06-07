@@ -15,6 +15,10 @@ extensions/*
 web/wp
 web/.htaccess
 
+# phpdoc
+.phpdoc
+web/docs
+
 # Dotenv
 .env
 .env.*
@@ -29,5 +33,6 @@ vendor/*
 *.sublime-workspace
 *.sublime-project
 *.vscode
+.phpdoc
 node_modules
 
