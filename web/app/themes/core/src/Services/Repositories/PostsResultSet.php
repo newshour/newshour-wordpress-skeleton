@@ -6,6 +6,8 @@
 
 namespace App\Themes\CoreTheme\Services\Repositories;
 
+use WP_Query;
+
 use Timber\PostQuery;
 
 use App\Themes\CoreTheme\Contracts\ResultSet;
@@ -119,7 +121,16 @@ final class PostsResultSet implements ResultSet {
 
         }
 
-        $this->data = (new PostQuery($this->queryParams, $this->postClass))->get_posts();
+        // If 'fields' was passed as is not set to 'all', we need to use the WP_Query class.
+        if (!empty($this->queryParams['fields']) && strcasecmp($this->queryParams['fields'], 'all') != 0) {
+
+            $this->data = (new WP_Query($this->queryParams))->get_posts();
+
+        } else {
+
+            $this->data = (new PostQuery($this->queryParams, $this->postClass))->get_posts();
+
+        }
 
         if ($useCache && count($this->data) > 0) {
             wp_cache_set($cacheKey, $this->data, $cacheGroup);
