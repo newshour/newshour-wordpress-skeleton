@@ -249,7 +249,7 @@ final class PostsResultSet implements ResultSet {
      * Exclude by ID or parent ID.
      *
      * @param array $excludeIds
-     * @param boolean $parent
+     * @param boolean $parent If true, excludes by parent ID(s).
      * @return ResultSet
      */
     public function exclude(array $excludeIds, $parent = false): ResultSet {
@@ -263,8 +263,11 @@ final class PostsResultSet implements ResultSet {
 
     /**
      * Filter a query by keyword args. See WP_Query documentation for a full
-     * list of args.
+     * list of args. You do not need to pass the 'post_type' parameter as this
+     * will automatically be done based on the model class mappings in
+     * TimberManager::classMap().
      *
+     * @see TimberManager
      * @param array $params
      * @return ResultSet
      */
@@ -272,15 +275,18 @@ final class PostsResultSet implements ResultSet {
 
         if (isset($params['post_type'])) {
 
-            unset($params['post_type']);
+            $message = 'Setting the "post_type" parameter as a filter query is redundant.';
 
-            trigger_error(
-                sprintf(
+            if (strcasecmp($params['post_type'], $this->queryParams['post_type']) != 0) {
+                $message = sprintf(
                     'You cannot filter on a different "post type". %s maps to "%s".',
                     $this->postClass,
                     $this->queryParams['post_type']
-                )
-            );
+                );
+            }
+
+            unset($params['post_type']);
+            trigger_error($message);
 
         }
 
@@ -292,7 +298,7 @@ final class PostsResultSet implements ResultSet {
     /**
      * Fetch the latest entries by post_date.
      *
-     * @param int $limit - Default is `posts_per_page`.
+     * @param int $limit Default is `posts_per_page`.
      * @return ResultSet
      */
     public function latest($limit = 0): ResultSet {
