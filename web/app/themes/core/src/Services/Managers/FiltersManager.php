@@ -57,7 +57,7 @@ class FiltersManager extends Manager {
      */
     public function registerDefaultQueryFilters($query): void {
 
-        if (is_front_page() && $query->is_main_query()) {
+        if (!is_page() && is_front_page() && $query->is_main_query()) {
             $query->set('posts_per_page', 1);
         }
 
