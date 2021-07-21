@@ -25,7 +25,6 @@ services:
             DB_HOST: db
         ports:
             - 80:80
-            - 443:443
         volumes:
             - .:/opt/wp-project-skeleton
 

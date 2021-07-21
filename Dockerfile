@@ -52,10 +52,6 @@ RUN mkdir -p /run/php && \
 COPY --chown=www-data:www-data . /opt/wp-project-skeleton
 WORKDIR /opt/wp-project-skeleton
 
-# Make sure uploads dir exists.
-RUN mkdir -p /opt/wp-project-skeleton/web/app/uploads && \
-    chown www-data:www-data /opt/wp-project-skeleton/web/app/uploads
-
 # Setup apache.
 COPY docker/conf/apache/sites-available/default.conf /etc/apache2/sites-available/default.conf
 COPY docker/conf/apache/conf-available/* /etc/apache2/conf-available/
@@ -71,7 +67,7 @@ RUN apt-get purge -q -y --auto-remove -o APT::AutoRemove::RecommendsImportant=fa
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-EXPOSE 443 80
+EXPOSE 80
 
 # Launch apache + php-fpm
 ENTRYPOINT ["/opt/docker/scripts/launch.sh"]
