@@ -8,13 +8,14 @@ PHP 7.4 is required for installation.
 
 1. Download and install [Composer](https://getcomposer.org/).
 2. From your terminal, run `composer create-project newshour/wp-project-skeleton path --repository "{\"type\": \"vcs\", \"url\": \"https://github.com/newshour/newshour-wordpress-skeleton\"}"`. (_path_ should be changed to your desired folder.)
-3. Set your local web server's document root to the `/web` folder.
-4. Login to the Wordpress Admin and enabled all plugins.
-5. Select "CoreTheme" as the theme under "Appearances".
+3. Update the .env file at the project root. This is your local env file to set environment variables for the project. `DB_NAME`, `DB_USER`, `DB_PASSWORD` and all salts/keys should be set to desired values.
+4. Set your local web server's document root to the `/web` folder.
+5. Login to the Wordpress Admin and enabled all plugins.
+6. Select "CoreTheme" as the theme under "Appearances".
 
 ### Docker
 
-You can also run this project with Docker: `docker-compose up`
+After running steps 1 - 3, you can then run this project with Docker: `docker-compose up`. Note that `WP_HOME` in your .env file should be set to `http://localhost`.
 
 ## Notes
 
