@@ -1,28 +1,29 @@
 <?php
-/** Staging */
-ini_set('display_errors', 0);
-define('WP_DEBUG_DISPLAY', false);
-define('SCRIPT_DEBUG', false);
-/** Disable all file modifications including updates and update notifications */
-define('DISALLOW_FILE_MODS', true);
-define('WP_CACHE', true);
-define('WP_POST_REVISIONS', 0);
+/**
+ * Configuration overrides for WP_ENV === 'staging'
+ */
+
+use Roots\WPConfig\Config;
 
 /**
- * PBS AWS configurations.
+ * You should try to keep staging as close to production as possible. However,
+ * should you need to, you can always override production configuration values
+ * with `Config::define`.
+ *
+ * Example: `Config::define('WP_DEBUG', true);`
+ * Example: `Config::define('DISALLOW_FILE_MODS', false);`
  */
-// Get browser ip address through proxy.
-if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-    $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
-}
+
+Config::define('WP_DEBUG', false);
+Config::define('WP_DEBUG_DISPLAY', false);
+Config::define('SCRIPT_DEBUG', false);
+
+/** Disable all file modifications including updates and update notifications */
+Config::define('DISALLOW_FILE_MODS', true);
+Config::define('WP_CACHE', true);
+Config::define('WP_POST_REVISIONS', 2);
 
 // Get proxy host to fix redirect loop when multisite is enabled.
 if (!empty($_SERVER['HTTP_X_FORWARDED_HOST'])) {
     $_SERVER['HTTP_HOST'] = $_SERVER['HTTP_X_FORWARDED_HOST'];
-}
-
-// If the proxy is served via https, make sure we have a value for 'HTTPS'. This fixes
-// a redirect loop for EC2 instances behind SSL enabled proxies.
-if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && strcasecmp($_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') == 0) {
-    $_SERVER['HTTPS'] = 'on';
 }
