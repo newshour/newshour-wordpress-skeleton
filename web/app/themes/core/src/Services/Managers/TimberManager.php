@@ -85,6 +85,10 @@ class TimberManager extends Manager {
      */
     public function initializeTimber(): void {
 
+        if (!defined('BASE_DIR')) {
+            wp_die('BASE_DIR is not defined. The constant must be set in "config/application.php"');
+        }
+
         // Set the Timber template location.
         Timber::$locations = trailingslashit(BASE_DIR) . 'templates';
 
