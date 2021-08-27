@@ -4,7 +4,7 @@
  * @version 1.0.0
  */
 
-namespace App\Cron\Tests;
+namespace App\Themes\CoreTheme\Tests;
 
 use Env\Env;
 
