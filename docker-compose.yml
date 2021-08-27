@@ -3,6 +3,7 @@ version: '3.8'
 services:
     db:
         image: mysql:5.7
+        container_name: mysql
         restart: always
         environment:
             MYSQL_DATABASE: ${DB_NAME}
@@ -18,6 +19,7 @@ services:
 
     app:
         image: wp-project-skeleton
+        container_name: app
         restart: always
         build:
             context: .
@@ -25,6 +27,8 @@ services:
             DB_HOST: db
         ports:
             - 80:80
+        depends_on:
+            - db
         volumes:
             - .:/opt/wp-project-skeleton
 
