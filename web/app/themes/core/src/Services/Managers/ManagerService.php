@@ -51,23 +51,6 @@ final class ManagerService {
 
         if (self::$instance == null) {
 
-            // Make sure Timber exists.
-            if (!class_exists('Timber')) {
-
-                if (is_admin()) {
-
-                    add_action('admin_notices', function() {
-                        echo '<div class="notice notice-error"><p>Timber must be activated before using this theme.</p></div>';
-                    });
-
-                } else {
-
-                    trigger_error('Timber has not been activated.', E_USER_ERROR);
-
-                }
-
-            }
-
             // Make sure WP_HOME exists.
             if (!defined('WP_HOME') || empty(WP_HOME)) {
                 trigger_error('The constant WP_HOME is not defined.', E_USER_ERROR);
