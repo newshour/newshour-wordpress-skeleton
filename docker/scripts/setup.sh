@@ -19,7 +19,15 @@ sed -i \
     -e "s/^post_max_size.*/post_max_size = 150M/g" \
     -e "s/^upload_max_filesize.*/upload_max_filesize = 150M/g" \
     -e "s/^;date\.timezone.*/date\.timezone = America\/New_York/g" \
+    -e "s/^;\(include_path = \".:\/usr\/share\/php*\)/\1/g" \
     /etc/php/${PHP_VER}/fpm/php.ini
+
+sed -i \
+    -e "s/^max_execution_time.*/max_execution_time = 120/g" \
+    -e "s/^memory_limit.*/memory_limit = 512M/g" \
+    -e "s/^;date\.timezone.*/date\.timezone = America\/New_York/g" \
+    -e "s/^;\(include_path = \".:\/usr\/share\/php*\)/\1/g" \
+    /etc/php/${PHP_VER}/cli/php.ini
 
 sed -i \
     -e "s/^error_log =.*/error_log = \/dev\/stderr/g" \
@@ -47,7 +55,7 @@ sed -i \
 a2dissite 000-default && \
     a2dismod mpm_prefork && \
     a2ensite default && \
-    a2enmod mpm_event expires headers proxy proxy_fcgi rewrite setenvif && \
+    a2enmod mpm_event alias deflate expires ext_filter filter headers mime proxy proxy_fcgi rewrite setenvif && \
     a2enconf localhost php${PHP_VER}-fpm
 
 # -----------------------------------------------------------------------------
@@ -117,7 +125,7 @@ else
 
     # Don't push access logs to stdout on dev
     sed -i \
-        -e "s/^.*CustomLog.*/CustomLog \$\{APACHE_LOG_DIR\}\/access.log combined/g" \
+        -e "s/^.*TransferLog.*/CustomLog \$\{APACHE_LOG_DIR\}\/access.log combined/g" \
         /etc/apache2/sites-available/default.conf
 
 fi
