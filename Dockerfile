@@ -21,6 +21,7 @@ RUN set -eux; \
         gnupg2 \
         htop \
         libapache2-mod-fcgid \
+        mysql-client \
         openssl \
         php-bcmath \
         php-bz2 \
@@ -71,4 +72,4 @@ EXPOSE 80
 
 # Launch apache + php-fpm
 ENTRYPOINT ["/opt/docker/scripts/launch.sh"]
-CMD ["7.4"]
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
