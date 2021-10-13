@@ -50,12 +50,11 @@ The following plugins are included by default in the composer.json file:
 * Advanced Custom Fields
 * Classic Editor
 * Debug Bar
-* Timber
 * WP Mail SMTP
 
 ### Theming
 
-While the project sets up an MVC environment for you, Timber is incorprated into the project and provides functionality for rendering templates via Twig. It also creates data models for Wordpress post types.  See [Timber's documentation](https://timber.github.io/docs/) and [Twig's documentation](https://twig.symfony.com/) for more information on what all you can do with Timber and Twig.
+While the project sets up an MVC environment for you, [Timber](https://upstatement.com/timber/) is incorprated into the project and provides functionality for rendering templates via Twig (e.g. the "view"). It also creates data models for Wordpress post types and provides useful helper utilities for theming.  See [Timber's documentation](https://timber.github.io/docs/) and [Twig's documentation](https://twig.symfony.com/) for more information on what all you can do with Timber and Twig.
 
 **Carbon**
 
