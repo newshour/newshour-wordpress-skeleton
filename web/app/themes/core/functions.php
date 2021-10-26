@@ -6,9 +6,11 @@
  *
  * @version 1.0
  */
+
+use NewsHour\WPCoreThemeComponents\Managers\ManagerService;
+
 use App\Themes\CoreTheme\Commands\HelloWorldCommand;
 use App\Themes\CoreTheme\Services\Managers\FiltersManager;
-use App\Themes\CoreTheme\Services\Managers\ManagerService;
 use App\Themes\CoreTheme\Services\Managers\RoutesManager;
 use App\Themes\CoreTheme\Services\Managers\ThemeManager;
 use App\Themes\CoreTheme\Services\Managers\TimberManager;

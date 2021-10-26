@@ -6,7 +6,8 @@
 
 namespace App\Themes\CoreTheme\Http\Models;
 
-use App\Themes\CoreTheme\Http\Models\Traits\Queryable;
+use NewsHour\WPCoreThemeComponents\Models\CorePost;
+use NewsHour\WPCoreThemeComponents\Query\Queryable;
 
 /**
  * A post model class for "articles".

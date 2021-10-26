@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Timber\Timber;
 
+use NewsHour\WPCoreThemeComponents\Managers\Manager;
+
 use App\Themes\CoreTheme\Http\Models\Article;
 use App\Themes\CoreTheme\Http\Models\Page;
 

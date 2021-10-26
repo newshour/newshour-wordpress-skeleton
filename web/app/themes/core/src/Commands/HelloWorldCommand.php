@@ -8,7 +8,7 @@ namespace App\Themes\CoreTheme\Commands;
 
 use WP_CLI;
 
-use App\Themes\CoreTheme\Contracts\Command;
+use NewsHour\WPCoreThemeComponents\Commands\Command;
 
 /**
  * This is an example WP CLI command. All commands must be registered in the bootstrapper

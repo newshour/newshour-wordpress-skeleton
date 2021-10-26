@@ -6,8 +6,9 @@
 
 namespace App\Themes\CoreTheme\Http\Controllers\Home;
 
-use App\Themes\CoreTheme\Contracts\Context;
-use App\Themes\CoreTheme\Http\Controllers\Controller;
+use NewsHour\WPCoreThemeComponents\Contexts\Context;
+use NewsHour\WPCoreThemeComponents\Controllers\Controller;
+
 use App\Themes\CoreTheme\Http\Models\Article;
 use App\Themes\CoreTheme\Http\Models\Page;
 

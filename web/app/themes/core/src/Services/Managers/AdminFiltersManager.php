@@ -8,6 +8,8 @@ namespace App\Themes\CoreTheme\Services\Managers;
 
 use Symfony\Component\HttpFoundation\Request;
 
+use NewsHour\WPCoreThemeComponents\Managers\Manager;
+
 /**
  * Bootstraps custom Wordpress admin filters.
  */
