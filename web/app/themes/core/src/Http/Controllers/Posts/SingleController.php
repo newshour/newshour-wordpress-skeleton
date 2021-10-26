@@ -6,8 +6,8 @@
 
 namespace App\Themes\CoreTheme\Http\Controllers\Posts;
 
-use App\Themes\CoreTheme\Contracts\Context;
-use App\Themes\CoreTheme\Http\Controllers\Controller;
+use NewsHour\WPCoreThemeComponents\Contexts\Context;
+use NewsHour\WPCoreThemeComponents\Controllers\Controller;
 
 /**
  * A controller for single posts.

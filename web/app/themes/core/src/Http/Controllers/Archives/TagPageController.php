@@ -8,8 +8,8 @@ namespace App\Themes\CoreTheme\Http\Controllers\Archives;
 
 use Timber\Term;
 
-use App\Themes\CoreTheme\Contracts\Context;
-use App\Themes\CoreTheme\Http\Controllers\Controller;
+use NewsHour\WPCoreThemeComponents\Contexts\Context;
+use NewsHour\WPCoreThemeComponents\Controllers\Controller;
 
 /**
  * A controller for tag pages.

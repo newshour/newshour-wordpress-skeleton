@@ -8,6 +8,8 @@ namespace App\Themes\CoreTheme\Services\Managers;
 
 use WP_Error;
 
+use NewsHour\WPCoreThemeComponents\Managers\Manager;
+
 /**
  * Bootstraps WordPress theme related functions, most importantly enqueuing
  * javascript and styles. Automatic feed and JSON endpoints are also disabled

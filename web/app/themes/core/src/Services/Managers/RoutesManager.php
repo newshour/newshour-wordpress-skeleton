@@ -8,7 +8,9 @@ namespace App\Themes\CoreTheme\Services\Managers;
 
 use Routes;
 
-use App\Themes\CoreTheme\Http\Controllers\FrontController;
+use NewsHour\WPCoreThemeComponents\Controllers\FrontController;
+use NewsHour\WPCoreThemeComponents\Managers\Manager;
+
 use App\Themes\CoreTheme\Http\Controllers\Ajax\AjaxController;
 
 /**

@@ -6,6 +6,8 @@
 
 namespace App\Themes\CoreTheme\Services\Managers;
 
+use NewsHour\WPCoreThemeComponents\Managers\Manager;
+
 /**
  * Bootstraps custom Wordpress filters.
  */

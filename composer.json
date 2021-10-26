@@ -15,6 +15,10 @@
                 "wpackagist-plugin/*",
                 "wpackagist-theme/*"
             ]
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:newshour/wp-core-theme-components.git"
         }
     ],
     "require": {
@@ -25,9 +29,8 @@
         "roots/wordpress": "^5.8.1",
         "roots/wp-config": "1.0.0",
         "roots/wp-password-bcrypt": "1.0.0",
-        "symfony/http-foundation": "^5.2",
-        "timber/timber": "^1.19",
         "vlucas/phpdotenv": "^5.3",
+        "newshour/wp-core-theme-components": "^1.0.0",
         "wpackagist-plugin/advanced-custom-fields": "^5.10.1",
         "wpackagist-plugin/classic-editor": "^1.0",
         "wpackagist-plugin/debug-bar": "^1.1",
