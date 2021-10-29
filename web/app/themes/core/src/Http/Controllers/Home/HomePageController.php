@@ -6,6 +6,7 @@
 
 namespace App\Themes\CoreTheme\Http\Controllers\Home;
 
+use NewsHour\WPCoreThemeComponents\Annotations\HttpMethods;
 use NewsHour\WPCoreThemeComponents\Contexts\Context;
 use NewsHour\WPCoreThemeComponents\Controllers\Controller;
 
@@ -58,6 +59,34 @@ class HomePageController extends Controller {
 
         // Render our template and send it back to the client.
         return $this->render('pages/index.twig', $this->context);
+
+    }
+
+    /**
+     * A basic example of handling a POST request.
+     *
+     * @HttpMethods("POST")
+     */
+    public function doHelloPostRequest() {
+
+        $request = $this->context->getRequest();
+
+        // Validate the nonce.
+        valid_nonce_or_abort($request->request->get(NONCE_FIELD_NAME));
+
+        $firstName = $request->request->get('first_name');
+
+        if (empty($firstName)) {
+            $this->context['error_msg'] = 'You did not add your first name!';
+            return $this->view();
+        }
+
+        $this->context['success_msg'] = sprintf(
+            'Hello %s! You have successfully made a POST request. Next, try refreshing this page as a GET request.',
+            esc_html($request->request->get('first_name'))
+        );
+
+        return $this->view();
 
     }
 

@@ -89,6 +89,10 @@ Config::define('SECURE_AUTH_SALT', env('SECURE_AUTH_SALT'));
 Config::define('LOGGED_IN_SALT', env('LOGGED_IN_SALT'));
 Config::define('NONCE_SALT', env('NONCE_SALT'));
 
+// Nonce field name for forms.
+Config::define('NONCE_FIELD_NAME', env('NONCE_FIELD_NAME') ?: '_wpnonce');
+Config::define('NONCE_ACTION', env('NONCE_ACTION') ?: -1);
+
 /**
  * Custom Settings
  */
