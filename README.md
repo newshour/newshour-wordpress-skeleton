@@ -1,6 +1,6 @@
 # NewsHour Wordpress Skeleton
 
-This skeleton should be used when creating Wordpress-based websites for NewsHour. It leverages [Bedrock](https://roots.io/bedrock/) for the project structure, [Composer](https://getcomposer.org/) for dependencies and [Timber](https://timber.github.io/docs/) for the theming.
+This skeleton should be used when creating Wordpress-based websites for NewsHour. It leverages [Bedrock](https://roots.io/bedrock/) for the project structure, [Composer](https://getcomposer.org/) for dependencies, [Timber](https://timber.github.io/docs/) for theming and the NewsHour's [Core Theme Components](https://github.com/newshour/wp-core-theme-components) library.
 
 ## Installation
 
