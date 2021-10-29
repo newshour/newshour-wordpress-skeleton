@@ -4,14 +4,13 @@
  * to help organize Wordpress filters and action callbacks. This keeps things
  * a bit more tidy and helps reduce Wordpress "callback hell".
  *
- * @version 1.0
+ * @version 1.0.1
  */
 
 use NewsHour\WPCoreThemeComponents\Managers\ManagerService;
 
 use App\Themes\CoreTheme\Commands\HelloWorldCommand;
 use App\Themes\CoreTheme\Services\Managers\FiltersManager;
-use App\Themes\CoreTheme\Services\Managers\RoutesManager;
 use App\Themes\CoreTheme\Services\Managers\ThemeManager;
 use App\Themes\CoreTheme\Services\Managers\TimberManager;
 
@@ -37,7 +36,6 @@ $managerService->addAll(
     [
         TimberManager::class,
         ThemeManager::class,
-        RoutesManager::class,
         FiltersManager::class
     ]
 );
@@ -51,5 +49,11 @@ if (defined('WP_CLI') && WP_CLI) {
     );
 }
 
-//...and launch.
+//...and run all managers.
 $managerService->run();
+
+// ----------------------------------------------------------------------------
+// Load any custom routes last.
+// ----------------------------------------------------------------------------
+
+require_once 'routes.php';

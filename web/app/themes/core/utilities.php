@@ -100,25 +100,46 @@ function get_scheme_and_host($url) {
  */
 function has_key($key, array $array) {
 
-    // Do some quick checks first.
-    if (count($array) < 1) {
-        return false;
+    return NewsHour\WPCoreThemeComponents\Utilities::hasKey($key, $array);
+
+}
+
+// ----------------------------------------------------------------------------
+
+/**
+ * Returns the nonce HTML field for use in forms.
+ *
+ * @see https://developer.wordpress.org/reference/functions/wp_nonce_field/
+ * @param mixed $action
+ * @return string
+ */
+function nonce_field($action = -1) {
+
+    $fieldName = defined('NONCE_FIELD_NAME') ? NONCE_FIELD_NAME : '_wpnonce';
+    $action = defined('NONCE_ACTION') ? NONCE_ACTION : $action;
+
+    return wp_nonce_field($action, $fieldName, true, false);
+
+}
+
+// ----------------------------------------------------------------------------
+
+/**
+ * Validates a nonce or aborts on failure.
+ *
+ * @param mixed $value
+ * @param integer $action
+ * @return mixed|boolean
+ */
+function valid_nonce_or_abort($value, $action = -1) {
+
+    $action = defined('NONCE_ACTION') ? NONCE_ACTION : $action;
+
+    if (!wp_verify_nonce($value, $action)) {
+        abort(400, 'Bad Request - nonce validation failed.');
     }
 
-    if (array_key_exists($key, $array)) {
-        return true;
-    }
-
-    // ...now look for the key.
-    $generator = fn($array) => (yield from $array);
-
-    foreach ($generator($array) as $k => $v) {
-        if (is_string($k) && strcasecmp($k, $key) == 0) {
-            return true;
-        }
-    }
-
-    return false;
+    return true;
 
 }
 

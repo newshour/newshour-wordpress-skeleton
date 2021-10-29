@@ -66,6 +66,31 @@ While the project sets up an MVC environment for you, [Timber](https://upstateme
 
 The theme is structured into Models (setup via Timber class mappings), Views (templates in our case) and Controllers. Traditional Wordpress "template" parts (e.g. single.php) act as entry points from which to launch desired Controller classes. Each Controller class is passed a Context object which contains initial data (such as the initial Post object) and a [Symfony Request](https://symfony.com/doc/current/components/http_foundation.html#request) object (`$controller->getRequest()`). Different Context classes can be created and passed depending on the needs of the Controller/route. For example, if you have a Controller/route which loads RSS feeds, you may wish to create a specific RSS Context class.
 
+#### HTTP Methods
+
+Using the `HttpMethods` code annotation, controller methods can be limited to select HTTP methods. By default, all controller methods which respond to requests are limited to ["safe" HTTP methods](https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP). To allow "unsafe" methods, such as POST requests, controller methods must provide annotations to describe the allowed method(s). For example:
+
+```php
+file: <theme_dir>src/Http/Controllers/Home/HomePageController.php
+
+use NewsHour\WPCoreThemeComponents\Annotations\HttpMethods;
+...
+    /**
+     * @HttpMethods("POST")
+     */
+    public function doHelloPostRequest() {
+...
+}
+```
+
+An array of HTTP methods can also be set:
+
+```php
+/**
+ * @HttpMethods({"GET", "OPTIONS"})
+ */
+```
+
 **Models**
 
 Models are created by extending the `CorePost` class (which in turn extends Timber's Post class). Model classes can be mapped to different post types which can then be autoloaded by Timber using `App\Themes\CoreTheme\Services\Managers\TimberManager::classMap()`. Model classes can use the trait `Queryable` to provide a fluent API for data fetching. For example, to fetch the latest posts for a given model:

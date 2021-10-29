@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Timber\Timber;
 
+use Twig\Environment;
+use Twig\TwigFunction;
+
 use NewsHour\WPCoreThemeComponents\Managers\Manager;
 
 use App\Themes\CoreTheme\Http\Models\Article;
@@ -61,11 +64,9 @@ class TimberManager extends Manager {
      */
     public function run(): void {
 
-        if (!is_admin()) {
-            $this->initializeTimber();
-        }
-
-        add_action('init', [$this, 'registerInitFilters']);
+        $this->initializeTimber();
+        add_action('init', [$this, 'registerInitFilters'], 1);
+        add_action('init', [$this, 'registerTwigFilters'], 1);
 
     }
 
@@ -91,17 +92,38 @@ class TimberManager extends Manager {
             wp_die('BASE_DIR is not defined. The constant must be set in "config/application.php"');
         }
 
+        $timber = new Timber();
+
         // Set the Timber template location.
-        Timber::$locations = trailingslashit(BASE_DIR) . 'templates';
+        $timber::$locations = trailingslashit(BASE_DIR) . 'templates';
 
         if (defined('TIMBER_TEMPLATE_DIR')) {
-            Timber::$locations = TIMBER_TEMPLATE_DIR;
+            $timber::$locations = TIMBER_TEMPLATE_DIR;
         }
 
         // Cache twig in staging and production.
         if (WP_ENV != 'development') {
-            Timber::$cache = true;
+            $timber::$cache = true;
         }
+
+    }
+
+    /**
+     * Filters related to Twig template engine.
+     *
+     * @return void
+     */
+    public function registerTwigFilters(): void {
+
+        add_filter('timber/twig', function(Environment $twig) {
+            $twig->addFunction(new TwigFunction('has_key', 'has_key'));
+            return $twig;
+        });
+
+        add_filter('timber/twig', function(Environment $twig) {
+            $twig->addFunction(new TwigFunction('nonce_field', 'nonce_field'));
+            return $twig;
+        });
 
     }
 
