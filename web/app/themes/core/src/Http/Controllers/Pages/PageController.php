@@ -45,7 +45,7 @@ class PageController extends Controller {
      */
     public function viewNotFound() {
 
-        return $this->render('pages/404.twig', $this->context);
+        return $this->render('pages/404.twig', $this->context, ['status_code' => 404]);
 
     }
 
