@@ -112,6 +112,11 @@ Config::define('WP_MAX_MEMORY_LIMIT', '512M');
 // PBS chrome API key.
 Config::define('PBS_CHROME_CONFIG', env('PBS_CHROME_CONFIG') ?: '');
 
+// Google Recaptcha Site Key.
+Config::define('RECAPTCHA_V3_SITE_KEY', env('RECAPTCHA_V3_SITE_KEY') ?: '');
+Config::define('RECAPTCHA_V3_SECRET_KEY', env('RECAPTCHA_V3_SECRET_KEY') ?: '');
+Config::define('RECAPTCHA_V3_SCORE', env('RECAPTCHA_V3_SCORE') ?: 0.5);
+
 /**
  * Debugging Settings
  */
