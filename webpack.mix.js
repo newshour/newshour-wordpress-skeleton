@@ -10,6 +10,7 @@ mix
 .options({
     processCssUrls: false
 })
+.js(srcDir + '/js/login.js', '/dist')
 .js(srcDir + '/js/app.js', '/dist')
 .sass(srcDir + '/css/app.scss', '/dist').options({
     postCss: [
