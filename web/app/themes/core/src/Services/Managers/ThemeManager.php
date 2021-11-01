@@ -210,27 +210,8 @@ class ThemeManager extends Manager {
             wp_dequeue_style('wp-block-library');
         }
 
-        // Enqueue manifest.js file.
-        if (file_exists($distManifestJs = trailingslashit(ASSETS_DIST_DIR) . 'manifest.js')) {
-            wp_enqueue_script(
-                'manifest',
-                trailingslashit(ASSETS_DIST_URL) . 'manifest.js',
-                [],
-                filemtime($distManifestJs),
-                true
-            );
-        }
-
-        // Enqueue vendor.js file.
-        if (file_exists($distVendorJs = trailingslashit(ASSETS_DIST_DIR) . 'vendor.js')) {
-            wp_enqueue_script(
-                'vendor',
-                trailingslashit(ASSETS_DIST_URL) . 'vendor.js',
-                [],
-                filemtime($distVendorJs),
-                true
-            );
-        }
+        // Enqueue Laravel Mix files.
+        $this->enqueueMixFiles();
 
         // Enqueue main app.js file.
         if (file_exists($distAppJs = trailingslashit(ASSETS_DIST_DIR) . 'app.js')) {
@@ -252,6 +233,37 @@ class ThemeManager extends Manager {
                 'base_path' => parse_url(trailingslashit(home_url()), PHP_URL_PATH)
             ]
         );
+
+    }
+
+    /**
+     * Enqueues Laravel Mix files manifest.js and vendor.js.
+     *
+     * @return void
+     */
+    public function enqueueMixFiles() {
+
+        // Enqueue manifest.js file.
+        if (file_exists($distManifestJs = trailingslashit(ASSETS_DIST_DIR) . 'manifest.js')) {
+            wp_enqueue_script(
+                'manifest',
+                trailingslashit(ASSETS_DIST_URL) . 'manifest.js',
+                [],
+                filemtime($distManifestJs),
+                true
+            );
+        }
+
+        // Enqueue vendor.js file.
+        if (file_exists($distVendorJs = trailingslashit(ASSETS_DIST_DIR) . 'vendor.js')) {
+            wp_enqueue_script(
+                'vendor',
+                trailingslashit(ASSETS_DIST_URL) . 'vendor.js',
+                [],
+                filemtime($distVendorJs),
+                true
+            );
+        }
 
     }
 
