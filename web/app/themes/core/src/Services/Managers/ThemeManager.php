@@ -199,25 +199,31 @@ class ThemeManager extends Manager {
         // Remove wordpress oembed
         wp_deregister_script('wp-embed');
 
-        // Don't use WordPress jquery in production. (admin bar and wordpress debug bar
-        // need it in development though.)
-        if (WP_ENV != 'development') {
-            wp_deregister_script('jquery');
-        }
-
+        // Don't use WordPress jquery on public pages.
         // Remove block library from public pages.
         if (!is_admin()) {
+            wp_deregister_script('jquery');
             wp_dequeue_style('wp-block-library');
+        }
+
+        // Enqueue jQuery file.
+        if (!is_admin() && file_exists($jQueryJs = trailingslashit(ASSETS_DIST_DIR) . 'js/jquery.min.js')) {
+            wp_enqueue_script(
+                'jquery',
+                static_url('js/jquery.min.js'),
+                [],
+                filemtime($jQueryJs)
+            );
         }
 
         // Enqueue Laravel Mix files.
         $this->enqueueMixFiles();
 
         // Enqueue main app.js file.
-        if (file_exists($distAppJs = trailingslashit(ASSETS_DIST_DIR) . 'app.js')) {
+        if (file_exists($distAppJs = trailingslashit(ASSETS_DIST_DIR) . 'js/app.js')) {
             wp_enqueue_script(
                 'app',
-                trailingslashit(ASSETS_DIST_URL) . 'app.js',
+                static_url('js/app.js'),
                 [],
                 filemtime($distAppJs),
                 true
@@ -244,10 +250,10 @@ class ThemeManager extends Manager {
     public function enqueueMixFiles() {
 
         // Enqueue manifest.js file.
-        if (file_exists($distManifestJs = trailingslashit(ASSETS_DIST_DIR) . 'manifest.js')) {
+        if (file_exists($distManifestJs = trailingslashit(ASSETS_DIST_DIR) . 'js/manifest.js')) {
             wp_enqueue_script(
                 'manifest',
-                trailingslashit(ASSETS_DIST_URL) . 'manifest.js',
+                static_url('js/manifest.js'),
                 [],
                 filemtime($distManifestJs),
                 true
@@ -255,10 +261,10 @@ class ThemeManager extends Manager {
         }
 
         // Enqueue vendor.js file.
-        if (file_exists($distVendorJs = trailingslashit(ASSETS_DIST_DIR) . 'vendor.js')) {
+        if (file_exists($distVendorJs = trailingslashit(ASSETS_DIST_DIR) . 'js/vendor.js')) {
             wp_enqueue_script(
                 'vendor',
-                trailingslashit(ASSETS_DIST_URL) . 'vendor.js',
+                static_url('js/vendor.js'),
                 [],
                 filemtime($distVendorJs),
                 true
