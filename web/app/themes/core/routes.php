@@ -29,3 +29,14 @@ Routes::map('/hello.do', function($params) {
         'doHelloPostRequest'
     );
 });
+
+// ----------------------------------------------------------------------------
+// Recaptcha Routes
+// ----------------------------------------------------------------------------
+
+Routes::map('/ajax/recaptchaVerify.do', function($params) {
+    FrontController::run(
+        Controllers\Ajax\RecaptchaController::class,
+        'doVerify'
+    );
+});

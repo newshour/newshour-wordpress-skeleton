@@ -49,6 +49,30 @@ class FiltersManager extends Manager {
 
         }, 10);
 
+        // Allow wp_enqueue_script() to add defer and async attributes.
+        add_filter('script_loader_tag', function($tag, $handle) {
+
+            $allowedAttrs = ['async', 'defer', 'async|defer', 'defer|async'];
+            $wpScriptsInstance = wp_scripts();
+
+            foreach ($allowedAttrs as $v) {
+
+                if ($wpScriptsInstance->get_data($handle, $v) !== false) {
+
+                    return str_replace(
+                        '></',
+                        sprintf(' %s></', str_replace('|', ' ', $v)),
+                        $tag
+                    );
+
+                }
+
+            }
+
+            return $tag;
+
+        }, 10, 2);
+
     }
 
     /**

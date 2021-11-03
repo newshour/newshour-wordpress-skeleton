@@ -10,7 +10,9 @@
 use NewsHour\WPCoreThemeComponents\Managers\ManagerService;
 
 use App\Themes\CoreTheme\Commands\HelloWorldCommand;
+use App\Themes\CoreTheme\Services\Managers\AdminFiltersManager;
 use App\Themes\CoreTheme\Services\Managers\FiltersManager;
+use App\Themes\CoreTheme\Services\Managers\LoginFiltersManager;
 use App\Themes\CoreTheme\Services\Managers\ThemeManager;
 use App\Themes\CoreTheme\Services\Managers\TimberManager;
 
@@ -39,6 +41,14 @@ $managerService->addAll(
         FiltersManager::class
     ]
 );
+
+if (is_admin()) {
+    $managerService->add(AdminFiltersManager::class);
+}
+
+if (is_login_page()) {
+    $managerService->add(LoginFiltersManager::class);
+}
 
 // Add CLI commands.
 if (defined('WP_CLI') && WP_CLI) {
