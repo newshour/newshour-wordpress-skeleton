@@ -9,6 +9,8 @@ namespace App\Themes\CoreTheme\Http\Controllers\Ajax;
 use NewsHour\WPCoreThemeComponents\Annotations\HttpMethods;
 use NewsHour\WPCoreThemeComponents\Contexts\Context;
 
+use App\Themes\CoreTheme\Services\Managers\LoginFiltersManager;
+
 /**
  * A controller for verifying Recaptcha tokens.
  */
@@ -35,10 +37,19 @@ class RecaptchaController extends AjaxController {
 
         $request = $this->context->getRequest();
         $token = $request->request->get('token');
+        $nonce = $request->request->get('nonce');
 
-        if (empty($token)) {
+        if (empty($token) || !wp_verify_nonce($nonce, LoginFiltersManager::RECAPTCHA_NONCE_KEY)) {
             return $this->renderJson(
-                ['error' => 'Recaptcha token missing.'],
+                ['error' => 'Could not verify reCAPTCHA token or nonce.'],
+                $this->context,
+                ['status_code' => 400]
+            );
+        }
+
+        if (!defined('RECAPTCHA_V3_SECRET_KEY') || empty(RECAPTCHA_V3_SECRET_KEY)) {
+            return $this->renderJson(
+                ['error' => 'Recaptcha is not configured correctly. Please make sure all configuration values are present.'],
                 $this->context,
                 ['status_code' => 400]
             );
@@ -75,7 +86,7 @@ class RecaptchaController extends AjaxController {
         }
 
         $score = isset($jsonResponse['score']) ? floatval($jsonResponse['score']) : 0;
-        $threshold = defined('RECAPTCHA_V3_SCORE') ? floatval(RECAPTCHA_V3_SCORE) : 0.5;
+        $threshold = defined('RECAPTCHA_V3_SCORE') && !empty(RECAPTCHA_V3_SCORE) ? floatval(RECAPTCHA_V3_SCORE) : 0.5;
 
         return $this->renderJson(
             [
