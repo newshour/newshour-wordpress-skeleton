@@ -6,6 +6,8 @@
 
 namespace App\Themes\CoreTheme\Services\Managers;
 
+use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
+
 use NewsHour\WPCoreThemeComponents\Managers\Manager;
 
 /**
@@ -20,6 +22,7 @@ class FiltersManager extends Manager {
 
         add_action('init', [$this, 'registerInitFilters'], 1);
         add_action('pre_get_posts', [$this, 'registerDefaultQueryFilters'], 1);
+        add_action('after_setup_theme', [$this, 'registerCoreThemeFilters'], 1);
 
     }
 
@@ -86,6 +89,64 @@ class FiltersManager extends Manager {
         if (!is_page() && is_front_page() && $query->is_main_query()) {
             $query->set('posts_per_page', 1);
         }
+
+    }
+
+    /**
+     * Filters which are specific to the Core Theme and Core Theme Components library.
+     *
+     * @return void
+     */
+    public function registerCoreThemeFilters(): void {
+
+        /**
+         * Sets a list of partner organizations that contribute articles.
+         *
+         * @param array $organizations
+         * @return array
+         */
+        add_filter('core_theme_partner_organizations', function ($organizations) {
+            return [
+                'Associated Press',
+                'Reuters'
+            ];
+        });
+
+        /**
+         * Sets the version strategy to use the Mix manifest JSON file. The default strategy
+         * used if no strategy is set is EmptyVersionStrategy.
+         *
+         * @return VersionStrategyInterface
+         */
+        add_filter('core_theme_default_asset_strategy', function($default) {
+            return new JsonManifestVersionStrategy(
+                trailingslashit(BASE_DIR) . 'web/static/mix-manifest.json'
+            );
+        });
+
+        /**
+         * Get the container used for dependency injection.
+         * @see https://symfony.com/doc/current/components/dependency_injection.html
+         */
+
+        /*
+        add_filter('core_theme_container', function ($container) {
+            // Do something with the container object and return it.
+            return $container;
+        });
+        */
+
+        /**
+         * Get the Response object before it is outputted back to the client.
+         * @see https://symfony.com/doc/current/components/http_foundation.html#response
+         */
+
+        /*
+        add_filter('core_theme_response', function ($response) {
+            // Do something with the response object and return it.
+            return $response;
+        });
+        */
 
     }
 

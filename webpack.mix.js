@@ -14,6 +14,7 @@ mix
 })
 .setPublicPath(publicPath)
 .copy('./node_modules/jquery/dist/jquery.min.js', publicPath + '/dist/js')
+.copyDirectory(srcDir + '/images/*', publicPath + '/dist/images')
 .js(srcDir + '/js/login.js', '/dist/js')
 .js(srcDir + '/js/app.js', '/dist/js')
 .sass(srcDir + '/css/app.scss', '/dist/css').options({

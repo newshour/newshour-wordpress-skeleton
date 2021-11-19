@@ -9,6 +9,7 @@ namespace App\Themes\CoreTheme\Http\Controllers\Home;
 use NewsHour\WPCoreThemeComponents\Annotations\HttpMethods;
 use NewsHour\WPCoreThemeComponents\Contexts\Context;
 use NewsHour\WPCoreThemeComponents\Controllers\Controller;
+use NewsHour\WPCoreThemeComponents\Components\Meta\MetaFactory;
 
 use App\Themes\CoreTheme\Http\Models\Article;
 use App\Themes\CoreTheme\Http\Models\Page;
@@ -18,15 +19,65 @@ use App\Themes\CoreTheme\Http\Models\Page;
  */
 class HomePageController extends Controller {
 
-    // The Context object.
     private Context $context;
+    private MetaFactory $metaFactory;
 
     /**
      * @param Context $context
+     * @param MetaFactory $metaFactory
      */
-    public function __construct(Context $context) {
+    public function __construct(Context $context, MetaFactory $metaFactory) {
 
         $this->context = $context;
+        $this->metaFactory = $metaFactory;
+
+    }
+
+    /**
+     * Sets up HTML meta tags.
+     *
+     * @return void
+     */
+    public function setupPageMeta(): void {
+
+        // Facebook Open Graph tags.
+        $faceBookMeta = $this->metaFactory->getFacebookMeta()
+            ->setDescription(get_bloginfo('description'))
+            ->setUrl(home_url())
+            ->setTitle(get_bloginfo('name'))
+            ->setSiteName(get_bloginfo('name'));
+
+        // Twitter meta tags.
+        $twitterMeta = $this->metaFactory->getTwitterMeta()
+            ->setSite('SomeTwitterHandleHere')
+            ->setTitle(get_bloginfo('name'));
+
+        // HTML meta tags.
+        $pageMeta = $this->metaFactory->getPageMeta()
+            ->setCanonicalUrl(home_url())
+            ->setDescription(get_bloginfo('description'))
+            ->setFacebookMeta($faceBookMeta)
+            ->setTwitterMeta($twitterMeta);
+
+        echo (string) $pageMeta . PHP_EOL;
+
+        // schema.org ld+json data.
+        $schemaFactory = $this->metaFactory->schemas();
+
+        $searchActionSchema = $schemaFactory->getSearchActionSchema()
+            ->setQueryInput('required name=search_term')
+            ->setTarget(home_url('/page/to/searchResults?q={search_term}'));
+
+        $webPageSchema = $schemaFactory->getWebPageSchema()
+            ->setName(get_bloginfo('name'))
+            ->setDescription(get_bloginfo('description'))
+            ->setThumbnail(get_option('core_theme_social_img_url'))
+            ->setPotentialAction($searchActionSchema)
+            ->setOrganization(
+                $schemaFactory->getOrganizationSchema(true)
+            );
+
+        echo (string) $webPageSchema->asHtml();
 
     }
 
@@ -36,6 +87,8 @@ class HomePageController extends Controller {
      * @return boolean
      */
     public function view() {
+
+        add_action('wp_head', [$this, 'setupPageMeta']);
 
         // You can retrieve the request object this way:
         $request = $this->context->getRequest();

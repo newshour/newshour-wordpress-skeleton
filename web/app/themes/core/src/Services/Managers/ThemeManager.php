@@ -75,14 +75,8 @@ class ThemeManager extends Manager {
             }
         );
 
-        // Add post format support
-        add_action(
-            'after_setup_theme',
-            function () {
-                add_theme_support('post-formats', ['status']);
-                add_theme_support('post-thumbnails');
-            }
-        );
+        // Add thumbnail support.
+        add_theme_support('post-thumbnails');
 
         // Only show admin bar in development mode. WP debug bar relies on it.
         if (WP_ENV != 'development') {
@@ -207,12 +201,12 @@ class ThemeManager extends Manager {
         }
 
         // Enqueue jQuery file.
-        if (!is_admin() && file_exists($jQueryJs = trailingslashit(ASSETS_DIST_DIR) . 'js/jquery.min.js')) {
+        if (!is_admin()) {
             wp_enqueue_script(
                 'jquery',
-                static_url('js/jquery.min.js'),
+                static_url('/dist/js/jquery.min.js'),
                 [],
-                filemtime($jQueryJs)
+                null
             );
         }
 
@@ -220,15 +214,13 @@ class ThemeManager extends Manager {
         $this->enqueueMixFiles();
 
         // Enqueue main app.js file.
-        if (file_exists($distAppJs = trailingslashit(ASSETS_DIST_DIR) . 'js/app.js')) {
-            wp_enqueue_script(
-                'app',
-                static_url('js/app.js'),
-                [],
-                filemtime($distAppJs),
-                true
-            );
-        }
+        wp_enqueue_script(
+            'app',
+            static_url('/dist/js/app.js'),
+            [],
+            null,
+            true
+        );
 
         // Ajax support
         wp_localize_script(
@@ -250,23 +242,21 @@ class ThemeManager extends Manager {
     public function enqueueMixFiles() {
 
         // Enqueue manifest.js file.
-        if (file_exists($distManifestJs = trailingslashit(ASSETS_DIST_DIR) . 'js/manifest.js')) {
-            wp_enqueue_script(
-                'manifest',
-                static_url('js/manifest.js'),
-                [],
-                filemtime($distManifestJs),
-                true
-            );
-        }
+        wp_enqueue_script(
+            'manifest',
+            static_url('/dist/js/manifest.js'),
+            [],
+            null,
+            true
+        );
 
-        // Enqueue vendor.js file.
-        if (file_exists($distVendorJs = trailingslashit(ASSETS_DIST_DIR) . 'js/vendor.js')) {
+        // Enqueue vendor.js file if we have one.
+        if (file_exists(trailingslashit(ASSETS_DIR) . 'dist/js/vendor.js')) {
             wp_enqueue_script(
                 'vendor',
-                static_url('js/vendor.js'),
+                static_url('/dist/js/vendor.js'),
                 [],
-                filemtime($distVendorJs),
+                null,
                 true
             );
         }
