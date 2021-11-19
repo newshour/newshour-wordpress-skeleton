@@ -142,15 +142,16 @@ function is_login_page() {
 // ----------------------------------------------------------------------------
 
 /**
- * Builds a static assets URL. The constant ASSETS_DIST_URL must be set in
- * constants.php.
+ * Builds a static asset URL. This function is deprecated. Use
+ * NewsHour\WPCoreThemeComponents\Utilities:static_url() instead.
  *
+ * @deprecated
  * @param string $path The relative path of the asset.
  * @return void
  */
 function static_url($path) {
 
-    return trim(trailingslashit(ASSETS_DIST_URL) . ltrim($path, '/'));
+    return NewsHour\WPCoreThemeComponents\Utilities::static_url($path);
 
 }
 
