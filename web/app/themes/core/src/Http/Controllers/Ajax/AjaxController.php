@@ -38,7 +38,8 @@ class AjaxController extends Controller {
         // We can send extra headers along with the response.
         $extra = [
             'headers' => [
-                'Custom-Header' => 'Hello World!'
+                'Custom-Header' => 'Hello World!',
+                'Cache-Control' => 'public, max-age=60'
             ]
         ];
 
