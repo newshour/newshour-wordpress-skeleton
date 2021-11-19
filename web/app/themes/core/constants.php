@@ -4,8 +4,8 @@
 // Common Constants
 // ----------------------------------------------------------------------------
 
-define('ASSETS_DIST_DIR', trailingslashit(BASE_DIR) . 'web/static/dist');
-define('ASSETS_DIST_URL', home_url('/static/dist'));
+define('ASSETS_DIR', trailingslashit(BASE_DIR) . 'web/static');
+define('ASSETS_URL', home_url('/static'));
 define('PUBLISHER_NAME', 'Organization Name Here');
 define('SITE_THEME_URL', get_template_directory_uri());
 define('SITE_THEME_DIR', dirname(__FILE__) . '/');
