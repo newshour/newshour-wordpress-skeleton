@@ -527,16 +527,16 @@
         },
         {
             "name": "newshour/wp-core-theme-components",
-            "version": "v1.0.4",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/newshour/wp-core-theme-components.git",
-                "reference": "bf949fd4fa2e7f5f4266e8b500106e53e056730a"
+                "reference": "33ab43f8499aa4a656239a4cd107038fec187d96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/newshour/wp-core-theme-components/zipball/bf949fd4fa2e7f5f4266e8b500106e53e056730a",
-                "reference": "bf949fd4fa2e7f5f4266e8b500106e53e056730a",
+                "url": "https://api.github.com/repos/newshour/wp-core-theme-components/zipball/33ab43f8499aa4a656239a4cd107038fec187d96",
+                "reference": "33ab43f8499aa4a656239a4cd107038fec187d96",
                 "shasum": ""
             },
             "require": {
@@ -581,10 +581,10 @@
             ],
             "description": "NewsHour Core Wordpress theme components.",
             "support": {
-                "source": "https://github.com/newshour/wp-core-theme-components/tree/v1.0.4",
+                "source": "https://github.com/newshour/wp-core-theme-components/tree/v1.0.5",
                 "issues": "https://github.com/newshour/wp-core-theme-components/issues"
             },
-            "time": "2021-11-19T15:52:34+00:00"
+            "time": "2021-11-19T21:01:59+00:00"
         },
         {
             "name": "oscarotero/env",
@@ -5492,5 +5492,5 @@
         "php": ">=7.4"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
