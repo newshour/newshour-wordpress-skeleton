@@ -64,7 +64,16 @@ While the project sets up an MVC environment for you via the [Core Theme Compone
 
 ### Controllers
 
-The theme is structured into Models (setup via Timber class mappings), Views (templates in our case) and Controllers. Traditional Wordpress "template" parts (e.g. single.php) act as entry points from which to launch desired Controller classes. Each Controller class is loaded via a Dependency Injection (DI) container. Context, Request and MetaFactory classes can be type-hinted as constructor arguments depending on the controller's needs:
+The theme is structured into Models (setup via Timber class mappings), Views (templates in our case) and Controllers. Traditional Wordpress "template" parts (e.g. single.php) act as entry points from which to launch desired Controller classes. Here single.php needs only 3 lines of code to launch into a cleaner, more familiar MVC structure. The first argument defines the controller class, while the second argument defines which controller method to load.
+
+```php
+use NewsHour\WPCoreThemeComponents\Controllers\FrontController;
+use App\Themes\CoreTheme\Http\Controllers\Posts\SingleController;
+
+FrontController::run(SingleController::class, 'view');
+```
+
+When a Controller class is loaded, a Dependecy Injection (DI) container becomes available. This allows for Context, Request and MetaFactory classes to be type-hinted as constructor arguments depending on the controller's needs:
 
 ```php
 public function __construct(Context $context, MetaFactory $metaFactory)
@@ -80,7 +89,7 @@ Different Context classes can be created and passed depending on the needs of th
 
 #### Controller Annotations
 
-**HTTP Methods annotation**
+##### HTTP Methods annotation
 
 Using the `HttpMethods` code annotation, controller methods can be limited to select HTTP methods. By default, all controller methods which respond to requests are limited to ["safe" HTTP methods](https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP). To allow "unsafe" methods, such as POST requests, controller methods must provide annotations to describe the allowed method(s). For example:
 
@@ -105,7 +114,7 @@ An array of HTTP methods can also be set:
  */
 ```
 
-**Login Required annotation**
+##### Login Required annotation
 
 Using the `LoginRequired` code annotation, controller methods can be limited to users who are currently logged in. Behind the scenes, this annotation calls the Wordpress method `is_user_logged_in`. Access to these methods will return a 405 status message if the login check fails.
 
