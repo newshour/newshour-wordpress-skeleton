@@ -142,22 +142,6 @@ function is_login_page() {
 // ----------------------------------------------------------------------------
 
 /**
- * Builds a static asset URL. This function is deprecated. Use
- * NewsHour\WPCoreThemeComponents\Utilities:static_url() instead.
- *
- * @deprecated
- * @param string $path The relative path of the asset.
- * @return void
- */
-function static_url($path) {
-
-    return NewsHour\WPCoreThemeComponents\Utilities::static_url($path);
-
-}
-
-// ----------------------------------------------------------------------------
-
-/**
  * Validates a nonce or aborts on failure.
  *
  * @param mixed $value
