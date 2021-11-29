@@ -8,6 +8,7 @@ namespace App\Themes\CoreTheme\Services\Managers;
 
 use Symfony\Component\HttpFoundation\Request;
 
+use NewsHour\WPCoreThemeComponents\Utilities;
 
 /**
  * Bootstraps custom Wordpress login page filters.
@@ -53,7 +54,7 @@ class LoginFiltersManager extends ThemeManager {
 
             wp_enqueue_script(
                 'login-handler',
-                static_url('js/login.js'),
+                Utilities::staticUrl('js/login.js'),
                 [],
                 '1.0',
                 true

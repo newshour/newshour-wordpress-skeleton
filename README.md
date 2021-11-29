@@ -39,7 +39,7 @@ You should follow [PHP-FIG](http://www.php-fig.org/) coding styles and conventio
 ### Documentation
 
 You can build documentation pages by installing [phpDocumentor](https://phpdoc.org/) and running `phpdoc` from the root
-project folder. The documentation pages will become available at `localhost/docs`.
+project folder. The documentation pages will become available at `localhost/docs`. The Core Theme Components documentation can be found [here](https://newshour.github.io/wp-core-theme-components-docs/).
 
 ### Plugins
 
@@ -54,7 +54,7 @@ The following plugins are included by default in the composer.json file:
 
 ### Theming
 
-While the project sets up an MVC environment for you, [Timber](https://upstatement.com/timber/) is incorprated into the project and provides functionality for rendering templates via Twig (e.g. the "view"). It also creates data models for Wordpress post types and provides useful helper utilities for theming.  See [Timber's documentation](https://timber.github.io/docs/) and [Twig's documentation](https://twig.symfony.com/) for more information on what all you can do with Timber and Twig.
+While the project sets up an MVC environment for you via the [Core Theme Components library](https://github.com/newshour/wp-core-theme-components), [Timber](https://upstatement.com/timber/) is incorprated into the project and provides functionality for rendering templates via Twig (e.g. the "view"). It also creates data models for Wordpress post types and provides useful helper utilities for theming.  See [Timber's documentation](https://timber.github.io/docs/) and [Twig's documentation](https://twig.symfony.com/) for more information on what all you can do with Timber and Twig.
 
 **Carbon**
 
@@ -62,11 +62,34 @@ While the project sets up an MVC environment for you, [Timber](https://upstateme
 
 ## MVC
 
-**Controllers**
+### Controllers
 
-The theme is structured into Models (setup via Timber class mappings), Views (templates in our case) and Controllers. Traditional Wordpress "template" parts (e.g. single.php) act as entry points from which to launch desired Controller classes. Each Controller class is passed a Context object which contains initial data (such as the initial Post object) and a [Symfony Request](https://symfony.com/doc/current/components/http_foundation.html#request) object (`$controller->getRequest()`). Different Context classes can be created and passed depending on the needs of the Controller/route. For example, if you have a Controller/route which loads RSS feeds, you may wish to create a specific RSS Context class.
+The theme is structured into Models (setup via Timber class mappings), Views (templates in our case) and Controllers. Traditional Wordpress "template" parts (e.g. single.php) act as entry points from which to launch desired Controller classes. Here single.php needs only 3 lines of code to launch into a cleaner, more familiar MVC structure. The first argument defines the controller class, while the second argument defines which controller method to load.
 
-#### HTTP Methods
+```php
+use NewsHour\WPCoreThemeComponents\Controllers\FrontController;
+use App\Themes\CoreTheme\Http\Controllers\Posts\SingleController;
+
+FrontController::run(SingleController::class, 'view');
+```
+
+When a Controller class is loaded, a Dependecy Injection (DI) container becomes available. This allows for Context, Request and MetaFactory classes to be type-hinted as constructor arguments depending on the controller's needs:
+
+```php
+public function __construct(Context $context, MetaFactory $metaFactory)
+{
+    $this->context = $context;
+    $this->metaFactory = $metaFactory;
+}
+```
+
+#### Contexts
+
+Different Context classes can be created and passed depending on the needs of the Controller/route. For example, if you have a Controller/route which loads RSS feeds, you may wish to create a specific RSS Context class. The default `Context` interface can be type-hinted in the controller's constructor to let the theme automatically choose a context class depending on the Wordpress template "type" (e.g. single, page, archive, home...).
+
+#### Controller Annotations
+
+##### HTTP Methods annotation
 
 Using the `HttpMethods` code annotation, controller methods can be limited to select HTTP methods. By default, all controller methods which respond to requests are limited to ["safe" HTTP methods](https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP). To allow "unsafe" methods, such as POST requests, controller methods must provide annotations to describe the allowed method(s). For example:
 
@@ -91,7 +114,17 @@ An array of HTTP methods can also be set:
  */
 ```
 
-**Models**
+##### Login Required annotation
+
+Using the `LoginRequired` code annotation, controller methods can be limited to users who are currently logged in. Behind the scenes, this annotation calls the Wordpress method `is_user_logged_in`. Access to these methods will return a 405 status message if the login check fails.
+
+```php
+/**
+ * @LoginRequired
+ */
+```
+
+### Models
 
 Models are created by extending the `CorePost` class (which in turn extends Timber's Post class). Model classes can be mapped to different post types which can then be autoloaded by Timber using `App\Themes\CoreTheme\Services\Managers\TimberManager::classMap()`. Model classes can use the trait `Queryable` to provide a fluent API for data fetching. For example, to fetch the latest posts for a given model:
 
@@ -105,7 +138,7 @@ or simply:
 Model::objects()->latest(10)->get();
 ```
 
-**Views**
+### Views
 
 From a Controller, Twig templates can be loaded and passed Context objects which contain all of the data needed to render the "view". For example:
 
@@ -133,7 +166,50 @@ $extra = [
 return $this->render('pages/index.twig', $this->context, $extra);
 ```
 
-### Commands
+## Theme Filters
+
+The following "Wordpress filters" can be used to hook into certain aspects of the Core Theme Components library:
+
+`core_theme_partner_organizations` &mdash; Define a set of partner organizations that contribute to the site. This set is primarily used to generate meta data.
+
+```php
+add_filter('core_theme_partner_organizations', function ($organizations) {
+    return [
+        'Associated Press',
+        'Reuters'
+    ];
+});
+```
+
+`core_theme_default_asset_strategy` &mdash; Define a default asset strategy. The Core Theme Components library uses [Symfony's Asset library](https://symfony.com/doc/current/components/asset.html) to load static assets via `NewsHour\WPCoreThemeComponents\Utilities::staticUrl` (or `static_url` in Twig files). The default strategy is `EmptyVersionStrategy` (passed as `$default`) which will not apply any versioning. The following snippet shows how to use the `mix-manifest.json` file for versioning:
+
+```php
+add_filter('core_theme_default_asset_strategy', function($default) {
+    return new JsonManifestVersionStrategy(
+        trailingslashit(BASE_DIR) . 'web/static/mix-manifest.json'
+    );
+});
+```
+
+`core_theme_container` &mdash; Get the [container](https://symfony.com/doc/current/components/dependency_injection.html) used for dependency injection. This filter is run before any controllers are loaded.
+
+```php
+add_filter('core_theme_container', function ($container) {
+    // Do something with the container object and return it.
+    return $container;
+});
+```
+
+`core_theme_response` &mdash; Get the [Response](https://symfony.com/doc/current/components/http_foundation.html#response) object before it is outputted back to the client.
+
+```php
+add_filter('core_theme_response', function ($response) {
+    // Do something with the response object and return it.
+    return $response;
+});
+```
+
+## Commands
 
 The project structure is fully compatible with [WP CLI](http://wp-cli.org/). You can build custom commands to perform a wide variety of tasks to run under a crontab. Commands are stored in the `src/Commands/` folder and loaded by the _ManagerService_ in `functions.php` just like Controllers. See the [HelloWorldCommand](https://github.com/newshour/newshour-wordpress-skeleton/blob/master/web/app/themes/mysite/src/Commands/HelloWorldCommand.php) for an example.
 

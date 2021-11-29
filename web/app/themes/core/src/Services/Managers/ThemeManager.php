@@ -8,6 +8,7 @@ namespace App\Themes\CoreTheme\Services\Managers;
 
 use WP_Error;
 
+use NewsHour\WPCoreThemeComponents\Utilities;
 use NewsHour\WPCoreThemeComponents\Managers\Manager;
 
 /**
@@ -204,7 +205,7 @@ class ThemeManager extends Manager {
         if (!is_admin()) {
             wp_enqueue_script(
                 'jquery',
-                static_url('/dist/js/jquery.min.js'),
+                Utilities::staticUrl('/dist/js/jquery.min.js'),
                 [],
                 null
             );
@@ -216,7 +217,7 @@ class ThemeManager extends Manager {
         // Enqueue main app.js file.
         wp_enqueue_script(
             'app',
-            static_url('/dist/js/app.js'),
+            Utilities::staticUrl('/dist/js/app.js'),
             [],
             null,
             true
@@ -244,7 +245,7 @@ class ThemeManager extends Manager {
         // Enqueue manifest.js file.
         wp_enqueue_script(
             'manifest',
-            static_url('/dist/js/manifest.js'),
+            Utilities::staticUrl('/dist/js/manifest.js'),
             [],
             null,
             true
@@ -254,7 +255,7 @@ class ThemeManager extends Manager {
         if (file_exists(trailingslashit(ASSETS_DIR) . 'dist/js/vendor.js')) {
             wp_enqueue_script(
                 'vendor',
-                static_url('/dist/js/vendor.js'),
+                Utilities::staticUrl('/dist/js/vendor.js'),
                 [],
                 null,
                 true
