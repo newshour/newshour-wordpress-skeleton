@@ -1,0 +1,24 @@
+{% extends "layouts/base.twig" %}
+
+{% block body %}
+
+    <article class="mb-3">
+
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ site.url }}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">User Page</li>
+            </ol>
+        </nav>
+
+        <p>Hello <b>{{ user.first_name }}</b>,</p>
+
+        <p>
+            Since the controller method which launched this template is using the LoginRequired annoation,
+            this page is only accessible to logged in users. You can try <a href="{{ home_url('/wp/wp-admin') }}">logging out</a> and navigating back
+            to this page.
+        </p>
+
+    </article>
+
+{% endblock %}

@@ -30,6 +30,13 @@ Routes::map('/hello.do', function($params) {
     );
 });
 
+Routes::map('/login-required-example', function($params) {
+    FrontController::run(
+        Controllers\Pages\PageController::class,
+        'loggedInUserView'
+    );
+});
+
 // ----------------------------------------------------------------------------
 // Recaptcha Routes
 // ----------------------------------------------------------------------------
