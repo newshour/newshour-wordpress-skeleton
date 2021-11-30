@@ -73,7 +73,7 @@ use App\Themes\CoreTheme\Http\Controllers\Posts\SingleController;
 FrontController::run(SingleController::class, 'view');
 ```
 
-When a Controller class is loaded, a Dependecy Injection (DI) container becomes available. This allows for Context, Request and MetaFactory classes to be type-hinted as constructor arguments depending on the controller's needs:
+When a Controller class is loaded, a Dependecy Injection (DI) container becomes available. This allows for Context, Request and any other service classes to be type-hinted as constructor arguments depending on the controller's needs:
 
 ```php
 public function __construct(Context $context, MetaFactory $metaFactory)
@@ -83,9 +83,19 @@ public function __construct(Context $context, MetaFactory $metaFactory)
 }
 ```
 
+Out-of-the-box services include:
+
+- Context: Context (default context interface), AjaxContext, PageContext, PostContext.
+- Request: the Symfony Request object. This object can also be retrieved from a `Context` object.
+- MetaFactory: a factory for retrieving objects which build HTML/schema.org meta data and tags.
+
+Additional service classes can be registered with the container by using the `core_theme_container` filter described below. For the scope of the skeleton, the filter is handled by the `FiltersManager` class but a separate `ServicesManager` could be created to register and configure a larger set of services.
+
 #### Contexts
 
-Different Context classes can be created and passed depending on the needs of the Controller/route. For example, if you have a Controller/route which loads RSS feeds, you may wish to create a specific RSS Context class. The default `Context` interface can be type-hinted in the controller's constructor to let the theme automatically choose a context class depending on the Wordpress template "type" (e.g. single, page, archive, home...).
+Different Context classes can be passed depending on the needs of the Controller/route. Single "post" pages can be passed a `PostContext` or single "page" pages can be passed a `PageContext`. The default `Context` interface can be type-hinted in the controller's constructor to let the theme automatically choose a context class depending on the Wordpress template "type" (e.g. single, page, archive, home...).
+
+Custom Context classes can also be registered with the service container and type-hinted in a Controller. For example, if you have a Controller/route which loads RSS feeds, you may wish to create a specific RSS Context class. See the `FilterManager` class for an example of how a custom `Context` is registered with the service container.
 
 #### Controller Annotations
 
@@ -116,11 +126,19 @@ An array of HTTP methods can also be set:
 
 ##### Login Required annotation
 
-Using the `LoginRequired` code annotation, controller methods can be limited to users who are currently logged in. Behind the scenes, this annotation calls the Wordpress method `is_user_logged_in`. Access to these methods will return a 405 status message if the login check fails.
+Using the `LoginRequired` code annotation, controller methods can be limited to users who are currently logged in. Behind the scenes, this annotation calls the Wordpress method `is_user_logged_in`. Access to these methods will return a 403 status message if the login check fails.
 
 ```php
 /**
  * @LoginRequired
+ */
+```
+
+A [capabililty](https://wordpress.org/support/article/roles-and-capabilities/) string may also be passed as an argument which will further limit access to those users which have the required capability.
+
+```php
+/**
+ * @LoginRequired("edit_posts")
  */
 ```
 

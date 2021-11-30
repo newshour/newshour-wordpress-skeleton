@@ -8,7 +8,12 @@ namespace App\Themes\CoreTheme\Services\Managers;
 
 use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
 
+use Timber\Timber;
+
 use NewsHour\WPCoreThemeComponents\Managers\Manager;
+use NewsHour\WPCoreThemeComponents\Http\Factories\RequestFactory;
+
+use App\Themes\CoreTheme\Http\Contexts\ExampleContext;
 
 /**
  * Bootstraps custom Wordpress filters.
@@ -128,13 +133,17 @@ class FiltersManager extends Manager {
          * Get the container used for dependency injection.
          * @see https://symfony.com/doc/current/components/dependency_injection.html
          */
-
-        /*
         add_filter('core_theme_container', function ($container) {
-            // Do something with the container object and return it.
+
+            // We are adding the example context class as an available dependency. We can type-hint this class in
+            // our controller constructors.
+            $container->register(ExampleContext::class, ExampleContext::class)
+                ->addArgument(RequestFactory::get())
+                ->addArgument(Timber::context());
+
             return $container;
+
         });
-        */
 
         /**
          * Get the Response object before it is outputted back to the client.
