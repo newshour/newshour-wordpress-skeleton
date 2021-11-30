@@ -41,4 +41,33 @@
 
     {% endif %}
 
+    <h3>A custom context</h3>
+
+    {% if foo %}
+    <p>
+        The key `foo` has the value <b>{{ foo }}</b>. It was set using the example custom class <em>ExampleContext</em>. This class was added to
+        the service container using the filter `core_theme_container` in the <em>FiltersManager</em> class.
+    </p>
+    <pre>
+        <code>
+/**
+ * An example custom context which extends BaseContext.
+ */
+class ExampleContext extends BaseContext {
+
+    /**
+    * @param Request $request
+    * @param array $initial
+    */
+    public function __construct(Request $request, array $initial) {
+
+        // These key/value pairs will be available for this context and can be accessed in
+        // the controller or in the view template.
+
+        $initial['foo'] = 'bar';
+        ...
+        </code>
+    </pre>
+    {% endif %}
+
 {% endblock %}
