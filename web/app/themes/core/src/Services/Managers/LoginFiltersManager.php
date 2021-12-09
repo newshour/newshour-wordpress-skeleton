@@ -7,32 +7,31 @@
 namespace App\Themes\CoreTheme\Services\Managers;
 
 use Symfony\Component\HttpFoundation\Request;
-
 use NewsHour\WPCoreThemeComponents\Utilities;
 
 /**
  * Bootstraps custom Wordpress login page filters.
  */
-class LoginFiltersManager extends ThemeManager {
-
-    const RECAPTCHA_NONCE_KEY = 'recaptcha-check';
+class LoginFiltersManager extends ThemeManager
+{
+    public const RECAPTCHA_NONCE_KEY = 'recaptcha-check';
 
     /**
      * @param Request $request
      */
-    public function __construct(Request $request) {
-
+    public function __construct(Request $request)
+    {
         parent::__construct($request);
     }
 
     /**
      * @return void
      */
-    public function run(): void {
+    public function run(): void
+    {
 
         // Google reCaptcha
         $this->loadRecaptcha();
-
     }
 
     /**
@@ -41,15 +40,14 @@ class LoginFiltersManager extends ThemeManager {
      *
      * @return void
      */
-    private function loadRecaptcha() {
-
+    private function loadRecaptcha()
+    {
         if (!defined('RECAPTCHA_V3_SITE_KEY') || empty(RECAPTCHA_V3_SITE_KEY)) {
             return;
         }
 
         // Google reCaptcha
         add_action('login_footer', function () {
-
             parent::enqueueMixFiles();
 
             wp_enqueue_script(
@@ -78,9 +76,6 @@ class LoginFiltersManager extends ThemeManager {
                     'nonce' => wp_create_nonce(self::RECAPTCHA_NONCE_KEY)
                 ]
             );
-
         }, 1);
-
     }
-
 }

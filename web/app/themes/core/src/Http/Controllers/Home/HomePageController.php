@@ -10,15 +10,14 @@ use NewsHour\WPCoreThemeComponents\Annotations\HttpMethods;
 use NewsHour\WPCoreThemeComponents\Contexts\Context;
 use NewsHour\WPCoreThemeComponents\Controllers\Controller;
 use NewsHour\WPCoreThemeComponents\Components\Meta\MetaFactory;
-
 use App\Themes\CoreTheme\Http\Models\Article;
 use App\Themes\CoreTheme\Http\Models\Page;
 
 /**
  * A home page controller.
  */
-class HomePageController extends Controller {
-
+class HomePageController extends Controller
+{
     private Context $context;
     private MetaFactory $metaFactory;
 
@@ -26,11 +25,10 @@ class HomePageController extends Controller {
      * @param Context $context
      * @param MetaFactory $metaFactory
      */
-    public function __construct(Context $context, MetaFactory $metaFactory) {
-
+    public function __construct(Context $context, MetaFactory $metaFactory)
+    {
         $this->context = $context;
         $this->metaFactory = $metaFactory;
-
     }
 
     /**
@@ -38,7 +36,8 @@ class HomePageController extends Controller {
      *
      * @return void
      */
-    public function setupPageMeta(): void {
+    public function setupPageMeta(): void
+    {
 
         // Facebook Open Graph tags.
         $faceBookMeta = $this->metaFactory->getFacebookMeta()
@@ -78,7 +77,6 @@ class HomePageController extends Controller {
             );
 
         echo (string) $webPageSchema->asHtml();
-
     }
 
     /**
@@ -86,8 +84,8 @@ class HomePageController extends Controller {
      *
      * @return boolean
      */
-    public function view() {
-
+    public function view()
+    {
         add_action('wp_head', [$this, 'setupPageMeta']);
 
         // You can retrieve the request object this way:
@@ -112,7 +110,6 @@ class HomePageController extends Controller {
 
         // Render our template and send it back to the client.
         return $this->render('pages/index.twig', $this->context);
-
     }
 
     /**
@@ -120,8 +117,8 @@ class HomePageController extends Controller {
      *
      * @HttpMethods("POST")
      */
-    public function doHelloPostRequest() {
-
+    public function doHelloPostRequest()
+    {
         $request = $this->context->getRequest();
 
         // Validate the nonce.
@@ -140,7 +137,5 @@ class HomePageController extends Controller {
         );
 
         return $this->view();
-
     }
-
 }

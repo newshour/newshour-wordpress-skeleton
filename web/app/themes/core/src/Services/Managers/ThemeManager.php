@@ -7,7 +7,6 @@
 namespace App\Themes\CoreTheme\Services\Managers;
 
 use WP_Error;
-
 use NewsHour\WPCoreThemeComponents\Utilities;
 use NewsHour\WPCoreThemeComponents\Managers\Manager;
 
@@ -25,15 +24,14 @@ use NewsHour\WPCoreThemeComponents\Managers\Manager;
  * feeds for different services that are consuming the feeds, public/private feeds,
  * etc.
  */
-class ThemeManager extends Manager {
-
+class ThemeManager extends Manager
+{
     /**
      * @return string
      */
-    public function __toString(): string {
-
+    public function __toString(): string
+    {
         return self::class;
-
     }
 
     /**
@@ -41,12 +39,12 @@ class ThemeManager extends Manager {
      *
      * @return void
      */
-    public function run(): void {
-
+    public function run(): void
+    {
         add_action('init', [$this, 'themeSetup'], 999);
         add_action('init', [$this, 'requireRestAuth'], 999);
+        add_action('init', [$this, 'cleanup'], 1);
         add_action('wp_enqueue_scripts', [$this, 'enqueue'], 999);
-        add_action('wp_loaded', [$this, 'cleanup'], 1);
 
         // Comment out if you want to keep default Wordpress feed behavior.
         add_action('wp_loaded', [$this, 'removeDefaultFeeds'], 1);
@@ -56,10 +54,10 @@ class ThemeManager extends Manager {
 
         // Needs to run before init...
         add_theme_support('html5', ['comment-form', 'search-form', 'gallery', 'caption', 'style', 'script']);
-
     }
 
-    public function themeSetup() {
+    public function themeSetup()
+    {
 
         // Make sure 'pages' can set excerpts.
         add_post_type_support('page', 'excerpt');
@@ -83,7 +81,6 @@ class ThemeManager extends Manager {
         if (WP_ENV != 'development') {
             add_filter('show_admin_bar', '__return_false');
         }
-
     }
 
     /**
@@ -91,8 +88,8 @@ class ThemeManager extends Manager {
      *
      * @return void
      */
-    public function cleanup() {
-
+    public function cleanup()
+    {
         remove_action('template_redirect', 'rest_output_link_header', 11, 0);
         remove_action('template_redirect', 'wp_shortlink_header', 11);
         remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10);
@@ -120,7 +117,6 @@ class ThemeManager extends Manager {
             remove_action('do_pings', 'do_all_pings');
             wp_clear_scheduled_hook('do_pings');
         }
-
     }
 
     /**
@@ -128,8 +124,8 @@ class ThemeManager extends Manager {
      *
      * @return void
      */
-    public function removeDefaultFeeds() {
-
+    public function removeDefaultFeeds()
+    {
         add_action('do_feed', 'abort', 1);
         add_action('do_feed_rdf', 'abort', 1);
         add_action('do_feed_rss', 'abort', 1);
@@ -137,7 +133,6 @@ class ThemeManager extends Manager {
         add_action('do_feed_atom', 'abort', 1);
         add_action('do_feed_rss2_comments', 'abort', 1);
         add_action('do_feed_atom_comments', 'abort', 1);
-
     }
 
     /**
@@ -145,7 +140,8 @@ class ThemeManager extends Manager {
      *
      * @return void
      */
-    public function removeDefaultJson() {
+    public function removeDefaultJson()
+    {
 
         // WP 5.x admin needs access to wp-json path.
         if (!is_admin()) {
@@ -153,7 +149,6 @@ class ThemeManager extends Manager {
             add_filter('json_jsonp_enabled', '__return_false');
             add_filter('xmlrpc_enabled', '__return_false');
         }
-
     }
 
     /**
@@ -162,10 +157,9 @@ class ThemeManager extends Manager {
      *
      * @return void
      */
-    public function requireRestAuth() {
-
+    public function requireRestAuth()
+    {
         add_filter('rest_authentication_errors', function ($result) {
-
             if (!empty($result)) {
                 return $result;
             }
@@ -179,9 +173,7 @@ class ThemeManager extends Manager {
             }
 
             return $result;
-
         });
-
     }
 
     /**
@@ -189,7 +181,8 @@ class ThemeManager extends Manager {
      *
      * @return void
      */
-    public function enqueue() {
+    public function enqueue()
+    {
 
         // Remove wordpress oembed
         wp_deregister_script('wp-embed');
@@ -232,7 +225,6 @@ class ThemeManager extends Manager {
                 'base_path' => parse_url(trailingslashit(home_url()), PHP_URL_PATH)
             ]
         );
-
     }
 
     /**
@@ -240,7 +232,8 @@ class ThemeManager extends Manager {
      *
      * @return void
      */
-    public function enqueueMixFiles() {
+    public function enqueueMixFiles()
+    {
 
         // Enqueue manifest.js file.
         wp_enqueue_script(
@@ -261,7 +254,5 @@ class ThemeManager extends Manager {
                 true
             );
         }
-
     }
-
 }

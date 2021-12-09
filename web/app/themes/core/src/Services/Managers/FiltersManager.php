@@ -7,28 +7,23 @@
 namespace App\Themes\CoreTheme\Services\Managers;
 
 use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
-
-use Timber\Timber;
-
+use Symfony\Component\DependencyInjection\Reference;
 use NewsHour\WPCoreThemeComponents\Managers\Manager;
-use NewsHour\WPCoreThemeComponents\Http\Factories\RequestFactory;
-
 use App\Themes\CoreTheme\Http\Contexts\ExampleContext;
 
 /**
  * Bootstraps custom Wordpress filters.
  */
-class FiltersManager extends Manager {
-
+class FiltersManager extends Manager
+{
     /**
      * @return void
      */
-    public function run(): void {
-
+    public function run(): void
+    {
         add_action('init', [$this, 'registerInitFilters'], 1);
         add_action('pre_get_posts', [$this, 'registerDefaultQueryFilters'], 1);
         add_action('after_setup_theme', [$this, 'registerCoreThemeFilters'], 1);
-
     }
 
     /**
@@ -36,51 +31,42 @@ class FiltersManager extends Manager {
      *
      * @return void
      */
-    public function registerInitFilters() {
+    public function registerInitFilters()
+    {
 
         // Set allowed origins for CORS. References internal WP filter `allowed_http_origins`.
-        add_filter('allowed_http_origins', function($origins) {
+        add_filter('allowed_http_origins', function ($origins) {
 
             // Add additional origins to set.
             return $origins;
-
         });
 
         // Add front page to wp_title() output.
         add_filter('wp_title', function ($title) {
-
             if (is_front_page() || is_home()) {
                 return get_bloginfo('name');
             }
 
             return $title;
-
         }, 10);
 
         // Allow wp_enqueue_script() to add defer and async attributes.
-        add_filter('script_loader_tag', function($tag, $handle) {
-
+        add_filter('script_loader_tag', function ($tag, $handle) {
             $allowedAttrs = ['async', 'defer', 'async|defer', 'defer|async'];
             $wpScriptsInstance = wp_scripts();
 
             foreach ($allowedAttrs as $v) {
-
                 if ($wpScriptsInstance->get_data($handle, $v) !== false) {
-
                     return str_replace(
                         '></',
                         sprintf(' %s></', str_replace('|', ' ', $v)),
                         $tag
                     );
-
                 }
-
             }
 
             return $tag;
-
         }, 10, 2);
-
     }
 
     /**
@@ -89,12 +75,11 @@ class FiltersManager extends Manager {
      * @param WP_Query $query
      * @return void
      */
-    public function registerDefaultQueryFilters($query): void {
-
+    public function registerDefaultQueryFilters($query): void
+    {
         if (!is_page() && is_front_page() && $query->is_main_query()) {
             $query->set('posts_per_page', 1);
         }
-
     }
 
     /**
@@ -102,7 +87,8 @@ class FiltersManager extends Manager {
      *
      * @return void
      */
-    public function registerCoreThemeFilters(): void {
+    public function registerCoreThemeFilters(): void
+    {
 
         /**
          * Sets a list of partner organizations that contribute articles.
@@ -123,14 +109,21 @@ class FiltersManager extends Manager {
          *
          * @return VersionStrategyInterface
          */
-        add_filter('core_theme_default_asset_strategy', function($default) {
+        add_filter('core_theme_default_asset_strategy', function ($default) {
             return new JsonManifestVersionStrategy(
                 trailingslashit(BASE_DIR) . 'web/static/mix-manifest.json'
             );
         });
 
         /**
-         * Get the container used for dependency injection.
+         * Get the container used for dependency injection. Heads up: The container goes through a compilation process
+         * for performance purposes. As such, arguments should be passed using Reference classes. If you pass concrete
+         * instances, the container compilation process will error out.
+         *
+         * ```
+         * $container->addArgument(new Reference(SomeClass::class));
+         * ```
+         *
          * @see https://symfony.com/doc/current/components/dependency_injection.html
          */
         add_filter('core_theme_container', function ($container) {
@@ -138,11 +131,10 @@ class FiltersManager extends Manager {
             // We are adding the example context class as an available dependency. We can type-hint this class in
             // our controller constructors.
             $container->register(ExampleContext::class, ExampleContext::class)
-                ->addArgument(RequestFactory::get())
-                ->addArgument(Timber::context());
+                ->addArgument(new Reference('request'))
+                ->addArgument(new Reference('timber.context'));
 
             return $container;
-
         });
 
         /**
@@ -156,7 +148,5 @@ class FiltersManager extends Manager {
             return $response;
         });
         */
-
     }
-
 }

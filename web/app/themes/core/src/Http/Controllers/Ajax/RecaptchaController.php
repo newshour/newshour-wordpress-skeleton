@@ -8,18 +8,17 @@ namespace App\Themes\CoreTheme\Http\Controllers\Ajax;
 
 use NewsHour\WPCoreThemeComponents\Annotations\HttpMethods;
 use NewsHour\WPCoreThemeComponents\Contexts\Context;
-
 use App\Themes\CoreTheme\Services\Managers\LoginFiltersManager;
 
 /**
  * A controller for verifying Recaptcha tokens.
  */
-class RecaptchaController extends AjaxController {
-
+class RecaptchaController extends AjaxController
+{
     private Context $context;
 
-    public function __construct(Context $context) {
-
+    public function __construct(Context $context)
+    {
         parent::__construct($context);
 
         $this->context = $context;
@@ -33,8 +32,8 @@ class RecaptchaController extends AjaxController {
      * @HttpMethods("POST")
      * @return void
      */
-    public function doVerify() {
-
+    public function doVerify()
+    {
         $request = $this->context->getRequest();
         $token = $request->request->get('token');
         $nonce = $request->request->get('nonce');
@@ -49,6 +48,7 @@ class RecaptchaController extends AjaxController {
 
         if (!defined('RECAPTCHA_V3_SECRET_KEY') || empty(RECAPTCHA_V3_SECRET_KEY)) {
             return $this->renderJson(
+                // phpcs:ignore
                 ['error' => 'Recaptcha is not configured correctly. Please make sure all configuration values are present.'],
                 $this->context,
                 ['status_code' => 400]
@@ -95,7 +95,5 @@ class RecaptchaController extends AjaxController {
             ],
             $this->context
         );
-
     }
-
 }
