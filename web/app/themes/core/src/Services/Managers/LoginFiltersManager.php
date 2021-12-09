@@ -29,7 +29,6 @@ class LoginFiltersManager extends ThemeManager
      */
     public function run(): void
     {
-
         // Google reCaptcha
         $this->loadRecaptcha();
     }

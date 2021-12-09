@@ -37,7 +37,6 @@ class AdminFiltersManager extends Manager
      */
     public function registerInitFilters(): void
     {
-
         // Remove import/export tools in production env.
         if (defined('WP_ENV') && WP_ENV == 'production') {
             add_action('admin_menu', function () {

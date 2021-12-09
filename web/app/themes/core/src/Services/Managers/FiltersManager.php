@@ -33,10 +33,8 @@ class FiltersManager extends Manager
      */
     public function registerInitFilters()
     {
-
         // Set allowed origins for CORS. References internal WP filter `allowed_http_origins`.
         add_filter('allowed_http_origins', function ($origins) {
-
             // Add additional origins to set.
             return $origins;
         });
@@ -89,7 +87,6 @@ class FiltersManager extends Manager
      */
     public function registerCoreThemeFilters(): void
     {
-
         /**
          * Sets a list of partner organizations that contribute articles.
          *
@@ -127,7 +124,6 @@ class FiltersManager extends Manager
          * @see https://symfony.com/doc/current/components/dependency_injection.html
          */
         add_filter('core_theme_container', function ($container) {
-
             // We are adding the example context class as an available dependency. We can type-hint this class in
             // our controller constructors.
             $container->register(ExampleContext::class, ExampleContext::class)

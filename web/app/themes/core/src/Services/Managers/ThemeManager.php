@@ -58,7 +58,6 @@ class ThemeManager extends Manager
 
     public function themeSetup()
     {
-
         // Make sure 'pages' can set excerpts.
         add_post_type_support('page', 'excerpt');
 
@@ -142,7 +141,6 @@ class ThemeManager extends Manager
      */
     public function removeDefaultJson()
     {
-
         // WP 5.x admin needs access to wp-json path.
         if (!is_admin()) {
             add_filter('json_enabled', '__return_false');
@@ -183,7 +181,6 @@ class ThemeManager extends Manager
      */
     public function enqueue()
     {
-
         // Remove wordpress oembed
         wp_deregister_script('wp-embed');
 
@@ -234,7 +231,6 @@ class ThemeManager extends Manager
      */
     public function enqueueMixFiles()
     {
-
         // Enqueue manifest.js file.
         wp_enqueue_script(
             'manifest',
