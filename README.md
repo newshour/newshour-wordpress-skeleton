@@ -1,6 +1,6 @@
 # NewsHour Wordpress Skeleton
 
-This skeleton should be used when creating Wordpress-based websites for NewsHour. It leverages [Bedrock](https://roots.io/bedrock/) for the project structure, [Composer](https://getcomposer.org/) for dependencies, [Timber](https://timber.github.io/docs/) for theming and the NewsHour's [Core Theme Components](https://github.com/newshour/wp-core-theme-components) library.
+This MVC skeleton should be used when creating Wordpress-based websites for NewsHour. It leverages [Bedrock](https://roots.io/bedrock/) for the project structure, [Composer](https://getcomposer.org/) for dependencies, [Timber](https://timber.github.io/docs/) for theming and the NewsHour's [Core Theme Components](https://github.com/newshour/wp-core-theme-components) library.
 
 ## Installation
 
@@ -34,12 +34,20 @@ The theme is namespaced and classes are set to autoload in composer.json. Any cu
 
 ### Coding Style
 
-You should follow [PHP-FIG](http://www.php-fig.org/) coding styles and conventions as closely as possible. This will help other developers grok your code and keep things organized. The theme's standard is set to PSR-1.
+You should follow [PHP-FIG](http://www.php-fig.org/) coding styles and conventions as closely as possible. This will help other developers grok your code and keep things organized. The theme's standard is set to **PSR-12**.
 
 ### Documentation
 
 You can build documentation pages by installing [phpDocumentor](https://phpdoc.org/) and running `phpdoc` from the root
 project folder. The documentation pages will become available at `localhost/docs`. The Core Theme Components documentation can be found [here](https://newshour.github.io/wp-core-theme-components-docs/).
+
+### Dependencies
+
+The main dependency of the Core Theme is the [Core Theme Components library](https://github.com/newshour/wp-core-theme-components) which bootstraps a familiar MVC environment using a combination of Symfony components and unique customizations for Wordpress. Further dependencies can be added to the `composer.json` file.
+
+**Carbon**
+
+[Carbon](http://carbon.nesbot.com/docs/) is included as a default dependency. While not a requirement, you should utilize Carbon whenever you are handling/passing datetime values.
 
 ### Plugins
 
@@ -52,13 +60,11 @@ The following plugins are included by default in the composer.json file:
 * Debug Bar
 * WP Mail SMTP
 
+**Heads up:** Careful thought should be made when deciding whether or not to use a plugin. Symfony's many components are available to use with the Core Theme and can be wired up via configuration files (YAML).
+
 ### Theming
 
-While the project sets up an MVC environment for you via the [Core Theme Components library](https://github.com/newshour/wp-core-theme-components), [Timber](https://upstatement.com/timber/) is incorprated into the project and provides functionality for rendering templates via Twig (e.g. the "view"). It also creates data models for Wordpress post types and provides useful helper utilities for theming.  See [Timber's documentation](https://timber.github.io/docs/) and [Twig's documentation](https://twig.symfony.com/) for more information on what all you can do with Timber and Twig.
-
-**Carbon**
-
-[Carbon](http://carbon.nesbot.com/docs/) is included as a default dependency. While not a requirement, you should utilize Carbon whenever you are handling date/time values.
+While the project sets up an MVC environment for you via the Core Theme Components library, [Timber](https://upstatement.com/timber/) is incorprated into the project and provides functionality for rendering templates via Twig (e.g. the "view"). It also creates data models for Wordpress post types, provides a Router and other useful helper utilities for theming.  See [Timber's documentation](https://timber.github.io/docs/) and [Twig's documentation](https://twig.symfony.com/) for more information on what all you can do with Timber and Twig.
 
 ## MVC
 
@@ -73,7 +79,7 @@ use App\Themes\CoreTheme\Http\Controllers\Posts\SingleController;
 FrontController::run(SingleController::class, 'view');
 ```
 
-When a Controller class is loaded, a Dependecy Injection (DI) container becomes available. This allows for Context, Request and any other service classes to be type-hinted as constructor arguments depending on the controller's needs:
+When a Controller class is loaded, a Dependecy Injection (DI) container becomes available and autowires the Controller classes. This allows for service classes to be type-hinted as constructor arguments (or other [via other methods](https://symfony.com/doc/current/service_container/injection_types.html)) depending on the controller's needs:
 
 ```php
 public function __construct(Context $context, MetaFactory $metaFactory)
@@ -83,17 +89,21 @@ public function __construct(Context $context, MetaFactory $metaFactory)
 }
 ```
 
-Out-of-the-box services include:
+The Core Theme Components library also includes these services "out of the box":
 
 - Context: Context (default context interface), AjaxContext, PageContext, PostContext.
-- Request: the Symfony Request object. This object can also be retrieved from a `Context` object.
 - MetaFactory: a factory for retrieving objects which build HTML/schema.org meta data and tags.
 
 Additional service classes can be registered with the container by using the `core_theme_container` filter described below. For the scope of the skeleton, the filter is handled by the `FiltersManager` class but a separate `ServicesManager` could be created to register and configure a larger set of services.
 
+The Core Theme Components library also includes Symfony's Framework Bundle which means any service provided by Symfony not in the exclusion list below can also be used with the theme. 
+
+_Syfmony Component Exclusions_:
+- Translator
+
 #### Contexts
 
-Different Context classes can be passed depending on the needs of the Controller/route. Single "post" pages can be passed a `PostContext` or single "page" pages can be passed a `PageContext`. The default `Context` interface can be type-hinted in the controller's constructor to let the theme automatically choose a context class depending on the Wordpress template "type" (e.g. single, page, archive, home...).
+Different Context classes can be passed depending on the needs of the Controller/route. Single "post" pages can be passed a `PostContext` or single "page" pages can be passed a `PageContext`. The default `Context` interface can be type-hinted in the controller's constructor to let the theme automatically choose a context class depending on the Wordpress template "type" (e.g. single, page, archive, home...). A Request object can also be retrieved from a Context class by using the `getRequest()` method.
 
 Custom Context classes can also be registered with the service container and type-hinted in a Controller. For example, if you have a Controller/route which loads RSS feeds, you may wish to create a specific RSS Context class. See the `FilterManager` class for an example of how a custom `Context` is registered with the service container.
 
@@ -126,7 +136,7 @@ An array of HTTP methods can also be set:
 
 ##### Login Required annotation
 
-Using the `LoginRequired` code annotation, controller methods can be limited to users who are currently logged in. Behind the scenes, this annotation calls the Wordpress method `is_user_logged_in`. Access to these methods will return a 403 status message if the login check fails.
+Using the `LoginRequired` code annotation, controller classes and methods can be limited to users who are currently logged in. Behind the scenes, this annotation calls the Wordpress method `is_user_logged_in`. Access to these methods will return a 403 status message if the login check fails.
 
 ```php
 /**
@@ -155,6 +165,8 @@ or simply:
 ```php
 Model::objects()->latest(10)->get();
 ```
+
+**Heads up:** Models in the context of Wordpress are essentially read-only entities and do not provide functionality with regards to Create, Update or Delete. To perform these actions, you will still need to use the internal Wordpress functions. e.g. `wp_update_post(...` when appropriate.
 
 ### Views
 
@@ -230,6 +242,8 @@ add_filter('core_theme_response', function ($response) {
 ## Commands
 
 The project structure is fully compatible with [WP CLI](http://wp-cli.org/). You can build custom commands to perform a wide variety of tasks to run under a crontab. Commands are stored in the `src/Commands/` folder and loaded by the _ManagerService_ in `functions.php` just like Controllers. See the [HelloWorldCommand](https://github.com/newshour/newshour-wordpress-skeleton/blob/master/web/app/themes/mysite/src/Commands/HelloWorldCommand.php) for an example.
+
+Any Commands in `src/Commands` are automatically loaded into the container and services can be type-hinted in the same way as Controllers.
 
 ### Project Extensions
 

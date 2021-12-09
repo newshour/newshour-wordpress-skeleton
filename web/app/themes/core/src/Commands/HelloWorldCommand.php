@@ -7,8 +7,7 @@
 namespace App\Themes\CoreTheme\Commands;
 
 use WP_CLI;
-
-use NewsHour\WPCoreThemeComponents\Commands\Command;
+use NewsHour\WPCoreThemeComponents\Commands\AbstractCommand;
 
 /**
  * This is an example WP CLI command. All commands must be registered in the bootstrapper
@@ -24,8 +23,8 @@ use NewsHour\WPCoreThemeComponents\Commands\Command;
  * php /usr/local/bin/wp hello-world --path=/path/to/wordpress/web/wp > /dev/null 2>&1
  * ```
  */
-class HelloWorldCommand implements Command {
-
+final class HelloWorldCommand extends AbstractCommand
+{
     public const COMMAND_NAME = 'hello-world';
 
     /**
@@ -33,10 +32,9 @@ class HelloWorldCommand implements Command {
      *
      * @return string
      */
-    public function __toString() {
-
+    public function __toString()
+    {
         return self::COMMAND_NAME;
-
     }
 
     /**
@@ -45,14 +43,12 @@ class HelloWorldCommand implements Command {
      * @param  array $args
      * @return mixed
      */
-    public function __invoke($args) {
-
+    public function __invoke($args)
+    {
         WP_CLI::line("Hello World!");
 
         WP_CLI::success(
             sprintf("The %s command ran.", (string)$this)
         );
-
     }
-
 }

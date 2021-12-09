@@ -13,29 +13,28 @@ use NewsHour\WPCoreThemeComponents\Components\Meta\MetaFactory;
 /**
  * A controller for single posts.
  */
-class SingleController extends Controller {
-
+class SingleController extends Controller
+{
     private Context $context;
 
     /**
      * @param Context $context
      * @param MetaFactory $metaFactory
      */
-    public function __construct(Context $context, MetaFactory $metaFactory) {
-
+    public function __construct(Context $context, MetaFactory $metaFactory)
+    {
         $this->context = $context;
 
         $post = $this->context['post'];
 
         if ($post != null) {
-            add_action('wp_head', function() use ($post, $metaFactory) {
+            add_action('wp_head', function () use ($post, $metaFactory) {
                 echo implode(PHP_EOL, [
                     (string) $metaFactory->getPageMeta($post),
                     (string) $metaFactory->schemas()->getWebPageSchema($post)->asHtml()
                 ]);
             });
         }
-
     }
 
     /**
@@ -43,11 +42,17 @@ class SingleController extends Controller {
      *
      * @return boolean
      */
-    public function view() {
+    public function view()
+    {
+
+        // Set a cache-control header.
+        $extras = [
+            'headers' => [
+                'Cache-Control' => 'max-age=300, public'
+            ]
+        ];
 
         // Render our template and send it back to the client.
-        return $this->render('posts/post.twig', $this->context);
-
+        return $this->render('posts/post.twig', $this->context, $extras);
     }
-
 }

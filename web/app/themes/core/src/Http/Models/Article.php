@@ -12,11 +12,10 @@ use NewsHour\WPCoreThemeComponents\Query\Queryable;
 /**
  * A post model class for "articles".
  */
-class Article extends CorePost {
+class Article extends CorePost
+{
+    use Queryable;
 
     // We can set a custom ResultSet class here.
     // public const RESULT_SET_CLASS = SomeCustomResultSetClass::class;
-
-    use Queryable;
-
 }

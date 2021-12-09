@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Extra utility functions.
  */
@@ -11,16 +12,16 @@
  * @param  integer $statusCode - default 404
  * @return void
  */
-function abort($statusCode = 404, $message = '') {
-
-    add_filter('wp_headers', function($headers) {
+function abort($statusCode = 404, $message = '')
+{
+    add_filter('wp_headers', function ($headers) {
         if (!wp_is_json_request()) {
             $headers['Content-Type'] = 'text/html';
             return $headers;
         }
     }, 99, 1);
 
-    add_filter('nocache_headers', function($headers) {
+    add_filter('nocache_headers', function ($headers) {
         if (!wp_is_json_request()) {
             $headers['Content-Type'] = 'text/html';
             return $headers;
@@ -57,7 +58,6 @@ function abort($statusCode = 404, $message = '') {
             $message = $statusCode;
             $title = 'Error';
             break;
-
     }
 
     wp_die(
@@ -65,7 +65,6 @@ function abort($statusCode = 404, $message = '') {
         apply_filters('wp_title', $title),
         ['response' => $statusCode]
     );
-
 }
 
 // ----------------------------------------------------------------------------
@@ -77,8 +76,8 @@ function abort($statusCode = 404, $message = '') {
  * @param string $url
  * @return string
  */
-function get_scheme_and_host($url) {
-
+function get_scheme_and_host($url)
+{
     $parsed = parse_url($url);
 
     if ($parsed === false) {
@@ -86,7 +85,6 @@ function get_scheme_and_host($url) {
     }
 
     return sprintf('%s://%s', $parsed['scheme'], $parsed['host']);
-
 }
 
 // ----------------------------------------------------------------------------
@@ -98,10 +96,9 @@ function get_scheme_and_host($url) {
  * @param array $array
  * @return boolean
  */
-function has_key($key, array $array) {
-
+function has_key($key, array $array)
+{
     return NewsHour\WPCoreThemeComponents\Utilities::hasKey($key, $array);
-
 }
 
 // ----------------------------------------------------------------------------
@@ -113,13 +110,12 @@ function has_key($key, array $array) {
  * @param mixed $action
  * @return string
  */
-function nonce_field($action = -1) {
-
+function nonce_field($action = -1)
+{
     $fieldName = defined('NONCE_FIELD_NAME') ? NONCE_FIELD_NAME : '_wpnonce';
     $action = defined('NONCE_ACTION') ? NONCE_ACTION : $action;
 
     return wp_nonce_field($action, $fieldName, true, false);
-
 }
 
 // ----------------------------------------------------------------------------
@@ -129,14 +125,13 @@ function nonce_field($action = -1) {
  *
  * @return boolean
  */
-function is_login_page() {
-
+function is_login_page()
+{
     if (isset($GLOBALS['pagenow'])) {
         return in_array($GLOBALS['pagenow'], ['wp-login.php', 'wp-register.php']);
     }
 
     return false;
-
 }
 
 // ----------------------------------------------------------------------------
@@ -148,8 +143,8 @@ function is_login_page() {
  * @param integer $action
  * @return mixed|boolean
  */
-function valid_nonce_or_abort($value, $action = -1) {
-
+function valid_nonce_or_abort($value, $action = -1)
+{
     $action = defined('NONCE_ACTION') ? NONCE_ACTION : $action;
 
     if (!wp_verify_nonce($value, $action)) {
@@ -157,7 +152,6 @@ function valid_nonce_or_abort($value, $action = -1) {
     }
 
     return true;
-
 }
 
 // ----------------------------------------------------------------------------

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Initializes the theme through manager classes. Managers are logical units
  * to help organize Wordpress filters and action callbacks. This keeps things
@@ -8,8 +9,8 @@
  */
 
 use NewsHour\WPCoreThemeComponents\Managers\ManagerService;
-
 use App\Themes\CoreTheme\Commands\HelloWorldCommand;
+use App\Themes\CoreTheme\Commands\EmailMessageCommand;
 use App\Themes\CoreTheme\Services\Managers\AdminFiltersManager;
 use App\Themes\CoreTheme\Services\Managers\FiltersManager;
 use App\Themes\CoreTheme\Services\Managers\LoginFiltersManager;
@@ -54,7 +55,8 @@ if (is_login_page()) {
 if (defined('WP_CLI') && WP_CLI) {
     $managerService->addAllCommands(
         [
-            HelloWorldCommand::class
+            HelloWorldCommand::class,
+            EmailMessageCommand::class
         ]
     );
 }

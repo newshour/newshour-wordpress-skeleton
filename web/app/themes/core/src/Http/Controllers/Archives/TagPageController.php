@@ -7,23 +7,22 @@
 namespace App\Themes\CoreTheme\Http\Controllers\Archives;
 
 use Timber\Term;
-
 use NewsHour\WPCoreThemeComponents\Contexts\Context;
 use NewsHour\WPCoreThemeComponents\Controllers\Controller;
 
 /**
  * A controller for tag pages.
  */
-class TagPageController extends Controller {
-
+class TagPageController extends Controller
+{
     // The Context object.
     private Context $context;
 
     /**
      * @param Context $context
      */
-    public function __construct(Context $context) {
-
+    public function __construct(Context $context)
+    {
         $this->context = $context;
     }
 
@@ -32,14 +31,13 @@ class TagPageController extends Controller {
      *
      * @return boolean
      */
-    public function view() {
+    public function view()
+    {
 
         // Add the tag term object.
         $this->context['term'] = new Term();
 
         // Render our template and send it back to the client.
         return $this->render('archives/tag.twig', $this->context);
-
     }
-
 }

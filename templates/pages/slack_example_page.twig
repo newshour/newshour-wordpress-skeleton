@@ -1,0 +1,33 @@
+{% extends "layouts/base.twig" %}
+
+{% block body %}
+
+    <article class="mb-3">
+
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ site.url }}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Slack Message Example</li>
+            </ol>
+        </nav>
+
+        <form action="{{ home_url('/examples/slack/sendMessage.do') }}" method="POST">
+            {{ nonce_field() }}
+            {% if success_msg %}
+                <div class="mt-3 p-3 mb-3 alert alert-success">{{ success_msg }}</div>
+            {% endif %}
+            <div class="mb-3">
+                <label for="first_name" class="form-label">Message</label>
+                <div class="input-group has-validation">
+                    <input type="text" name="slack_message" id="id_slack_message" placeholder="Message" class="form-control{% if error_msg %} is-invalid{% endif %}">
+                    {% if error_msg %}
+                        <div class="invalid-feedback">{{ error_msg }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+    </article>
+
+{% endblock %}
