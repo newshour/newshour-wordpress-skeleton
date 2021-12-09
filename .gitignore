@@ -24,6 +24,9 @@ web/docs
 .env.*
 !.env.example
 
+# Components lib
+cache/*
+
 # Composer
 vendor/*
 !vendor/.gitkeep
@@ -33,6 +36,7 @@ vendor/*
 *.sublime-workspace
 *.sublime-project
 *.vscode
+*.cache
 .phpdoc
 node_modules
 
