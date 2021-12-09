@@ -38,7 +38,6 @@ class HomePageController extends Controller
      */
     public function setupPageMeta(): void
     {
-
         // Facebook Open Graph tags.
         $faceBookMeta = $this->metaFactory->getFacebookMeta()
             ->setDescription(get_bloginfo('description'))
