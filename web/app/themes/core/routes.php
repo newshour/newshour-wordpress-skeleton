@@ -19,7 +19,8 @@ use App\Themes\CoreTheme\Http\Controllers as Controllers;
 Routes::map('/ajax/helloWorld.do', function ($params) {
     FrontController::run(
         Controllers\Ajax\AjaxController::class,
-        'dohelloWorld'
+        'dohelloWorld',
+        ['exampleParameter' => 'Hello world']
     );
 });
 

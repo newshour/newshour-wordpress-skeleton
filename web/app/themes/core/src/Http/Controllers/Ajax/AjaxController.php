@@ -32,14 +32,16 @@ class AjaxController extends Controller
     }
 
     /**
+     * @param string $exampleParameter
      * @return Response
      */
-    public function doHelloWorld(): Response
+    public function doHelloWorld(string $exampleParameter): Response
     {
 
         // This is our dictionary to be encoded as JSON sent by the response.
         $data = [
             'html' => 'This content was rendered from an AJAX request. It also has set a custom HTTP header.',
+            'example_parameter' => $exampleParameter
         ];
 
         // We can send extra headers along with the response.
