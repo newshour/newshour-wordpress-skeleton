@@ -125,13 +125,13 @@ class ThemeManager extends Manager
      */
     public function removeDefaultFeeds()
     {
-        add_action('do_feed', 'abort', 1);
-        add_action('do_feed_rdf', 'abort', 1);
-        add_action('do_feed_rss', 'abort', 1);
-        add_action('do_feed_rss2', 'abort', 1);
-        add_action('do_feed_atom', 'abort', 1);
-        add_action('do_feed_rss2_comments', 'abort', 1);
-        add_action('do_feed_atom_comments', 'abort', 1);
+        add_action('do_feed', fn () => abort(404), 1);
+        add_action('do_feed_rdf', fn () => abort(404), 1);
+        add_action('do_feed_rss', fn () => abort(404), 1);
+        add_action('do_feed_rss2', fn () => abort(404), 1);
+        add_action('do_feed_atom', fn () => abort(404), 1);
+        add_action('do_feed_rss2_comments', fn () => abort(404), 1);
+        add_action('do_feed_atom_comments', fn () => abort(404), 1);
     }
 
     /**
