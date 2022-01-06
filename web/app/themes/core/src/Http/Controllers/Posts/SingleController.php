@@ -29,8 +29,9 @@ class SingleController extends Controller
 
         if ($post != null) {
             add_action('wp_head', function () use ($post, $metaFactory) {
+                // Output meta data into <head>. Here we are also adding a Twitter "label" card.
                 echo implode(PHP_EOL, [
-                    (string) $metaFactory->getPageMeta($post),
+                    (string) $metaFactory->getPageMeta($post)->getTwitterMeta()->addLabels(['Written By' => SITE_NAME]),
                     (string) $metaFactory->schemas()->getWebPageSchema($post)->asHtml()
                 ]);
             });
