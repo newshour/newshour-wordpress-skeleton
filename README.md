@@ -74,7 +74,7 @@ The theme is structured into Models (setup via Timber class mappings), Views (te
 
 ```php
 use NewsHour\WPCoreThemeComponents\Controllers\FrontController;
-use App\Themes\CoreTheme\Http\Controllers\Posts\SingleController;
+use App\Themes\CoreTheme\Controllers\Posts\SingleController;
 
 FrontController::run(SingleController::class, 'view');
 ```
@@ -96,9 +96,10 @@ The Core Theme Components library also includes these services "out of the box":
 
 Additional service classes can be registered with the container by using the `core_theme_container` filter described below. For the scope of the skeleton, the filter is handled by the `FiltersManager` class but a separate `ServicesManager` could be created to register and configure a larger set of services.
 
-The Core Theme Components library also includes Symfony's Framework Bundle which means any service provided by Symfony not in the exclusion list below can also be used with the theme. 
+The Core Theme Components library also includes Symfony's Framework Bundle which means any service provided by Symfony not in the exclusion list below can also be used with the theme.
 
 _Syfmony Component Exclusions_:
+- URL routing
 - Translator
 
 #### Contexts
@@ -106,6 +107,12 @@ _Syfmony Component Exclusions_:
 Different Context classes can be passed depending on the needs of the Controller/route. Single "post" pages can be passed a `PostContext` or single "page" pages can be passed a `PageContext`. The default `Context` interface can be type-hinted in the controller's constructor to let the theme automatically choose a context class depending on the Wordpress template "type" (e.g. single, page, archive, home...). A Request object can also be retrieved from a Context class by using the `getRequest()` method.
 
 Custom Context classes can also be registered with the service container and type-hinted in a Controller. For example, if you have a Controller/route which loads RSS feeds, you may wish to create a specific RSS Context class. See the `FilterManager` class for an example of how a custom `Context` is registered with the service container.
+
+#### Routing
+
+Routing can be achieved through two different methods. The first is the standard Wordpress method of routing (e.g. [WP_Rewrite](https://developer.wordpress.org/reference/classes/wp_rewrite/)) and the second is via [Timber's Router](https://timber.github.io/docs/guides/routing/) class which is based off the AltoRouter library.
+
+Using WP_Rewrite is often confusing and error prone, so it is simpler to use Timber's routing capabilities. Custom routes can be placed in `routes.php` of the theme's directory.
 
 #### Controller Annotations
 
@@ -196,6 +203,18 @@ $extra = [
 return $this->render('pages/index.twig', $this->context, $extra);
 ```
 
+Since `render()` returns a [Response](https://symfony.com/doc/current/components/http_foundation.html#response) object, you can also set headers directly on the object.
+
+```php
+$response = return $this->render('pages/index.twig', $this->context);
+$response->setCache([
+    'max_age' => 300,
+    'public' => true
+]);
+
+return $response;
+```
+
 ## Theme Filters
 
 The following "Wordpress filters" can be used to hook into certain aspects of the Core Theme Components library:
@@ -230,6 +249,8 @@ add_filter('core_theme_container', function ($container) {
 });
 ```
 
+**Heads up:** you should set any container/service configurations in `config/services.yaml`
+
 `core_theme_response` &mdash; Get the [Response](https://symfony.com/doc/current/components/http_foundation.html#response) object before it is outputted back to the client.
 
 ```php
@@ -242,6 +263,10 @@ add_filter('core_theme_response', function ($response) {
 ## Commands
 
 The project structure is fully compatible with [WP CLI](http://wp-cli.org/). You can build custom commands to perform a wide variety of tasks to run under a crontab. Commands are stored in the `src/Commands/` folder and loaded by the _ManagerService_ in `functions.php` just like Controllers. See the [HelloWorldCommand](https://github.com/newshour/newshour-wordpress-skeleton/blob/master/web/app/themes/mysite/src/Commands/HelloWorldCommand.php) for an example.
+
+### Symfony Console
+
+Symfony's console application can also be invoked just like any other Symfony application via `php bin/console`.
 
 Any Commands in `src/Commands` are automatically loaded into the container and services can be type-hinted in the same way as Controllers.
 
