@@ -4,7 +4,6 @@ services:
     db:
         image: mysql:5.7
         container_name: mysql
-        restart: always
         environment:
             MYSQL_DATABASE: ${DB_NAME}
             MYSQL_USER: ${DB_USER}
@@ -26,7 +25,6 @@ services:
     app:
         image: wp-project-skeleton
         container_name: app
-        restart: always
         build:
             context: .
         environment:
