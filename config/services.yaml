@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        autoconfigure: true
+        autowire: true
+
+    App\Themes\CoreTheme\:
+        resource: '../web/app/themes/core/src/*'
+        exclude: '../web/app/themes/core/src/{Controllers,Managers,Tests}/*'
+
+    App\Themes\CoreTheme\Controllers\:
+        resource: '../web/app/themes/core/src/Controllers/*'
+        tags: ['controller.service_arguments']
+
+    App\Themes\CoreTheme\Contexts\ExampleContext:
+        arguments: ['@request', '@timber.context']
