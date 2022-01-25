@@ -4,15 +4,15 @@
  * @version 1.0.0
  */
 
-namespace App\Themes\CoreTheme\Services\Managers;
+namespace App\Themes\CoreTheme\Managers;
 
 use Symfony\Component\HttpFoundation\Request;
 use Timber\Timber;
 use Twig\Environment;
 use Twig\TwigFunction;
 use NewsHour\WPCoreThemeComponents\Managers\Manager;
-use App\Themes\CoreTheme\Http\Models\Article;
-use App\Themes\CoreTheme\Http\Models\Page;
+use App\Themes\CoreTheme\Models\Article;
+use App\Themes\CoreTheme\Models\Page;
 
 /**
  * Bootstraps Timber settings and filters. Set custom post type class mappings

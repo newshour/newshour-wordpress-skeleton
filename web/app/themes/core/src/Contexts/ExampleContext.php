@@ -4,7 +4,7 @@
  * @version 1.0.0
  */
 
-namespace App\Themes\CoreTheme\Http\Contexts;
+namespace App\Themes\CoreTheme\Contexts;
 
 use Symfony\Component\HttpFoundation\Request;
 use NewsHour\WPCoreThemeComponents\Contexts\BaseContext;

@@ -4,7 +4,7 @@
  * @version 1.0.0
  */
 
-namespace App\Themes\CoreTheme\Http\Controllers\Pages;
+namespace App\Themes\CoreTheme\Controllers\Pages;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Notifier\ChatterInterface;

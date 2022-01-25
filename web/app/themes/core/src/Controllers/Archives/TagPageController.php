@@ -4,7 +4,7 @@
  * @version 1.0.0
  */
 
-namespace App\Themes\CoreTheme\Http\Controllers\Archives;
+namespace App\Themes\CoreTheme\Controllers\Archives;
 
 use Timber\Term;
 use NewsHour\WPCoreThemeComponents\Contexts\Context;
@@ -33,11 +33,13 @@ class TagPageController extends Controller
      */
     public function view()
     {
-
         // Add the tag term object.
         $this->context['term'] = new Term();
 
         // Render our template and send it back to the client.
-        return $this->render('archives/tag.twig', $this->context);
+        $response = $this->render('archives/tag.twig', $this->context);
+        $response->setCache(['max_age' => 300, 'public' => true]);
+
+        return $response;
     }
 }

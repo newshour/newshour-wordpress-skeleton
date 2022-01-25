@@ -4,7 +4,7 @@
  * @version 1.0.0
  */
 
-namespace App\Themes\CoreTheme\Http\Controllers\Ajax;
+namespace App\Themes\CoreTheme\Controllers\Ajax;
 
 use Symfony\Component\HttpFoundation\Response;
 use NewsHour\WPCoreThemeComponents\Contexts\Context;
@@ -46,11 +46,13 @@ class AjaxController extends Controller
         // We can send extra headers along with the response.
         $extra = [
             'headers' => [
-                'Custom-Header' => 'Hello World!',
-                'Cache-Control' => 'public, max-age=60'
+                'Custom-Header' => 'Hello World!'
             ]
         ];
 
-        return $this->renderJson($data, $this->context, $extra);
+        $response = $this->renderJson($data, $this->context, $extra);
+        $response->setCache(['max_age' => 60, 'public' => true]);
+
+        return $response;
     }
 }

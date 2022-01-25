@@ -4,7 +4,7 @@
  * @version 1.0.0
  */
 
-namespace App\Themes\CoreTheme\Http\Controllers\Posts;
+namespace App\Themes\CoreTheme\Controllers\Posts;
 
 use NewsHour\WPCoreThemeComponents\Contexts\Context;
 use NewsHour\WPCoreThemeComponents\Controllers\Controller;
@@ -45,15 +45,10 @@ class SingleController extends Controller
      */
     public function view()
     {
-
-        // Set a cache-control header.
-        $extras = [
-            'headers' => [
-                'Cache-Control' => 'max-age=300, public'
-            ]
-        ];
-
         // Render our template and send it back to the client.
-        return $this->render('posts/post.twig', $this->context, $extras);
+        $response = $this->render('posts/post.twig', $this->context);
+        $response->setCache(['max_age' => 300, 'public' => true]);
+
+        return $response;
     }
 }

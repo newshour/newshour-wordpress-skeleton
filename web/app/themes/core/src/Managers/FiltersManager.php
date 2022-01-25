@@ -4,12 +4,12 @@
  * @version 1.0.0
  */
 
-namespace App\Themes\CoreTheme\Services\Managers;
+namespace App\Themes\CoreTheme\Managers;
 
 use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
 use Symfony\Component\DependencyInjection\Reference;
 use NewsHour\WPCoreThemeComponents\Managers\Manager;
-use App\Themes\CoreTheme\Http\Contexts\ExampleContext;
+use App\Themes\CoreTheme\Contexts\ExampleContext;
 
 /**
  * Bootstraps custom Wordpress filters.
@@ -107,9 +107,9 @@ class FiltersManager extends Manager
          * @return VersionStrategyInterface
          */
         add_filter('core_theme_default_asset_strategy', function ($default) {
-            return new JsonManifestVersionStrategy(
-                trailingslashit(BASE_DIR) . 'web/static/mix-manifest.json'
-            );
+            if (file_exists($manifest = trailingslashit(BASE_DIR) . 'web/static/mix-manifest.json')) {
+                return new JsonManifestVersionStrategy($manifest);
+            }
         });
 
         /**
@@ -124,12 +124,6 @@ class FiltersManager extends Manager
          * @see https://symfony.com/doc/current/components/dependency_injection.html
          */
         add_filter('core_theme_container', function ($container) {
-            // We are adding the example context class as an available dependency. We can type-hint this class in
-            // our controller constructors.
-            $container->register(ExampleContext::class, ExampleContext::class)
-                ->addArgument(new Reference('request'))
-                ->addArgument(new Reference('timber.context'));
-
             return $container;
         });
 
