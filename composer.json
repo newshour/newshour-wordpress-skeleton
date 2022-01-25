@@ -56,9 +56,6 @@
         "post-root-package-install": [
             "php -r \"copy('.env.example', '.env');\""
         ],
-        "post-autoload-dump": [
-            "NewsHour\\WPCoreThemeComponents\\Containers\\ContainerFactory::dumpAutoload"
-        ],
         "tests": [
             "vendor/bin/phpunit --bootstrap vendor/autoload.php web/app/themes/core/src/Tests",
             "phpcs --standard=psr12 ./web/app/themes/"
