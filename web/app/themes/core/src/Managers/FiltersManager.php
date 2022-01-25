@@ -7,9 +7,7 @@
 namespace App\Themes\CoreTheme\Managers;
 
 use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
-use Symfony\Component\DependencyInjection\Reference;
 use NewsHour\WPCoreThemeComponents\Managers\Manager;
-use App\Themes\CoreTheme\Contexts\ExampleContext;
 
 /**
  * Bootstraps custom Wordpress filters.
@@ -113,19 +111,17 @@ class FiltersManager extends Manager
         });
 
         /**
-         * Get the container used for dependency injection. Heads up: The container goes through a compilation process
-         * for performance purposes. As such, arguments should be passed using Reference classes. If you pass concrete
-         * instances, the container compilation process will error out.
-         *
-         * ```
-         * $container->addArgument(new Reference(SomeClass::class));
-         * ```
-         *
+         * Get the container used for dependency injection. If you are configuring services, this should be
+         * done within `config/services.yaml` or `config/packages/...`.
          * @see https://symfony.com/doc/current/components/dependency_injection.html
          */
+
+        /*
         add_filter('core_theme_container', function ($container) {
+            // Do something with the container and return it.
             return $container;
         });
+        */
 
         /**
          * Get the Response object before it is outputted back to the client.
