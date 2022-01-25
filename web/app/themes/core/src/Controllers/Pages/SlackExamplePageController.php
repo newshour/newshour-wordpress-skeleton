@@ -56,7 +56,6 @@ class SlackExamplePageController extends Controller
      */
     public function view(): Response
     {
-
         // Render our template and send it back to the client.
         return $this->render('pages/slack_example_page.twig', $this->context);
     }
