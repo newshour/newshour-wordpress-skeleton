@@ -26,6 +26,7 @@ web/docs
 
 # Components lib
 cache/*
+var/*
 
 # Composer
 vendor/*
@@ -39,4 +40,3 @@ vendor/*
 *.cache
 .phpdoc
 node_modules
-
