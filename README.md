@@ -94,13 +94,11 @@ The Core Theme Components library also includes these services "out of the box":
 - Context: Context (default context interface), AjaxContext, PageContext, PostContext.
 - MetaFactory: a factory for retrieving objects which build HTML/schema.org meta data and tags.
 
-Additional service classes can be registered with the container by using the `core_theme_container` filter described below. For the scope of the skeleton, the filter is handled by the `FiltersManager` class but a separate `ServicesManager` could be created to register and configure a larger set of services.
-
-The Core Theme Components library also includes Symfony's Framework Bundle which means any service provided by Symfony not in the exclusion list below can also be used with the theme.
+Additional service classes can be registered in `config/services.yaml`. The Core Theme Components library also includes Symfony's Framework Bundle, Debug Bundle and Monolog Bundle which means any service provided by Symfony not in the exclusion list below can also be used with the theme.
 
 _Syfmony Component Exclusions_:
-- URL routing
-- Translator
+- URL routing (use Timber's Router, see "Routing" section below)
+- Translator (use Wordpress translation utilities)
 
 #### Contexts
 
