@@ -11,5 +11,9 @@ services:
         resource: '../web/app/themes/core/src/Controllers/*'
         tags: ['controller.service_arguments']
 
+    App\Themes\CoreTheme\Commands\:
+        resource: '../web/app/themes/core/src/Commands/*'
+        tags: ['controller.service_arguments']
+
     App\Themes\CoreTheme\Contexts\ExampleContext:
         arguments: ['@request', '@timber.context']
