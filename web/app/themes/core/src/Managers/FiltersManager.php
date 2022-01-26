@@ -4,12 +4,10 @@
  * @version 1.0.0
  */
 
-namespace App\Themes\CoreTheme\Services\Managers;
+namespace App\Themes\CoreTheme\Managers;
 
 use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
-use Symfony\Component\DependencyInjection\Reference;
 use NewsHour\WPCoreThemeComponents\Managers\Manager;
-use App\Themes\CoreTheme\Http\Contexts\ExampleContext;
 
 /**
  * Bootstraps custom Wordpress filters.
@@ -107,31 +105,23 @@ class FiltersManager extends Manager
          * @return VersionStrategyInterface
          */
         add_filter('core_theme_default_asset_strategy', function ($default) {
-            return new JsonManifestVersionStrategy(
-                trailingslashit(BASE_DIR) . 'web/static/mix-manifest.json'
-            );
+            if (file_exists($manifest = trailingslashit(BASE_DIR) . 'web/static/mix-manifest.json')) {
+                return new JsonManifestVersionStrategy($manifest);
+            }
         });
 
         /**
-         * Get the container used for dependency injection. Heads up: The container goes through a compilation process
-         * for performance purposes. As such, arguments should be passed using Reference classes. If you pass concrete
-         * instances, the container compilation process will error out.
-         *
-         * ```
-         * $container->addArgument(new Reference(SomeClass::class));
-         * ```
-         *
+         * Get the container used for dependency injection. If you are configuring services, this should be
+         * done within `config/services.yaml` or `config/packages/...`.
          * @see https://symfony.com/doc/current/components/dependency_injection.html
          */
-        add_filter('core_theme_container', function ($container) {
-            // We are adding the example context class as an available dependency. We can type-hint this class in
-            // our controller constructors.
-            $container->register(ExampleContext::class, ExampleContext::class)
-                ->addArgument(new Reference('request'))
-                ->addArgument(new Reference('timber.context'));
 
+        /*
+        add_filter('core_theme_container', function ($container) {
+            // Do something with the container and return it.
             return $container;
         });
+        */
 
         /**
          * Get the Response object before it is outputted back to the client.

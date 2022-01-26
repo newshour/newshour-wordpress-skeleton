@@ -4,11 +4,11 @@
  * @version 1.0.0
  */
 
-namespace App\Themes\CoreTheme\Http\Controllers\Ajax;
+namespace App\Themes\CoreTheme\Controllers\Ajax;
 
 use NewsHour\WPCoreThemeComponents\Annotations\HttpMethods;
 use NewsHour\WPCoreThemeComponents\Contexts\Context;
-use App\Themes\CoreTheme\Services\Managers\LoginFiltersManager;
+use App\Themes\CoreTheme\Managers\LoginFiltersManager;
 
 /**
  * A controller for verifying Recaptcha tokens.

@@ -4,7 +4,7 @@
  * @version 1.0.0
  */
 
-namespace App\Themes\CoreTheme\Http\Models;
+namespace App\Themes\CoreTheme\Models;
 
 use NewsHour\WPCoreThemeComponents\Models\CorePost;
 use NewsHour\WPCoreThemeComponents\Query\Queryable;

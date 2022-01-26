@@ -7,6 +7,6 @@
  */
 
 use NewsHour\WPCoreThemeComponents\Controllers\FrontController;
-use App\Themes\CoreTheme\Http\Controllers\Archives\TagPageController;
+use App\Themes\CoreTheme\Controllers\Archives\TagPageController;
 
 FrontController::run(TagPageController::class, 'view');

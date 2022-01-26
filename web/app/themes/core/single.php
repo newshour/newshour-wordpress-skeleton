@@ -7,6 +7,6 @@
  */
 
 use NewsHour\WPCoreThemeComponents\Controllers\FrontController;
-use App\Themes\CoreTheme\Http\Controllers\Posts\SingleController;
+use App\Themes\CoreTheme\Controllers\Posts\SingleController;
 
 FrontController::run(SingleController::class, 'view');

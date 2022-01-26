@@ -10,7 +10,7 @@
  */
 
 use NewsHour\WPCoreThemeComponents\Controllers\FrontController;
-use App\Themes\CoreTheme\Http\Controllers as Controllers;
+use App\Themes\CoreTheme\Controllers as Controllers;
 
 // ----------------------------------------------------------------------------
 // Routes.

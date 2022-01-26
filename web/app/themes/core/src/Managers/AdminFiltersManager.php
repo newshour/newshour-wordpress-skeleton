@@ -4,7 +4,7 @@
  * @version 1.0.0
  */
 
-namespace App\Themes\CoreTheme\Services\Managers;
+namespace App\Themes\CoreTheme\Managers;
 
 use Symfony\Component\HttpFoundation\Request;
 use NewsHour\WPCoreThemeComponents\Managers\Manager;

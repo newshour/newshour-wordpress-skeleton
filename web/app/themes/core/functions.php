@@ -11,11 +11,11 @@
 use NewsHour\WPCoreThemeComponents\Managers\ManagerService;
 use App\Themes\CoreTheme\Commands\HelloWorldCommand;
 use App\Themes\CoreTheme\Commands\EmailMessageCommand;
-use App\Themes\CoreTheme\Services\Managers\AdminFiltersManager;
-use App\Themes\CoreTheme\Services\Managers\FiltersManager;
-use App\Themes\CoreTheme\Services\Managers\LoginFiltersManager;
-use App\Themes\CoreTheme\Services\Managers\ThemeManager;
-use App\Themes\CoreTheme\Services\Managers\TimberManager;
+use App\Themes\CoreTheme\Managers\AdminFiltersManager;
+use App\Themes\CoreTheme\Managers\FiltersManager;
+use App\Themes\CoreTheme\Managers\LoginFiltersManager;
+use App\Themes\CoreTheme\Managers\ThemeManager;
+use App\Themes\CoreTheme\Managers\TimberManager;
 
 // ----------------------------------------------------------------------------
 // Load files.

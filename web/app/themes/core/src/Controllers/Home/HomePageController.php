@@ -4,14 +4,14 @@
  * @version 1.0.0
  */
 
-namespace App\Themes\CoreTheme\Http\Controllers\Home;
+namespace App\Themes\CoreTheme\Controllers\Home;
 
 use NewsHour\WPCoreThemeComponents\Annotations\HttpMethods;
 use NewsHour\WPCoreThemeComponents\Contexts\Context;
 use NewsHour\WPCoreThemeComponents\Controllers\Controller;
 use NewsHour\WPCoreThemeComponents\Components\Meta\MetaFactory;
-use App\Themes\CoreTheme\Http\Models\Article;
-use App\Themes\CoreTheme\Http\Models\Page;
+use App\Themes\CoreTheme\Models\Article;
+use App\Themes\CoreTheme\Models\Page;
 
 /**
  * A home page controller.

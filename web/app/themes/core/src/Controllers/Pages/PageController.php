@@ -4,14 +4,14 @@
  * @version 1.0.0
  */
 
-namespace App\Themes\CoreTheme\Http\Controllers\Pages;
+namespace App\Themes\CoreTheme\Controllers\Pages;
 
 use Timber\User;
 use NewsHour\WPCoreThemeComponents\Annotations\LoginRequired;
 use NewsHour\WPCoreThemeComponents\Contexts\Context;
 use NewsHour\WPCoreThemeComponents\Controllers\Controller;
 use NewsHour\WPCoreThemeComponents\Components\Meta\MetaFactory;
-use App\Themes\CoreTheme\Http\Contexts\ExampleContext;
+use App\Themes\CoreTheme\Contexts\ExampleContext;
 
 /**
  * A controller for pages.
@@ -47,9 +47,11 @@ class PageController extends Controller
      */
     public function view()
     {
-
         // Render our template and send it back to the client.
-        return $this->render('pages/page.twig', $this->context);
+        $response = $this->render('pages/page.twig', $this->context);
+        $response->setCache(['max_age' => 300, 'public' => true]);
+
+        return $response;
     }
 
     /**
@@ -61,7 +63,10 @@ class PageController extends Controller
         $this->context['user'] = new User();
         $this->context['page_title'] = 'A page for logged in users';
 
-        return $this->render('pages/user_page.twig', $this->context);
+        $response = $this->render('pages/user_page.twig', $this->context);
+        $response->setCache(['max_age' => 0, 'must_revalidate' => true, 'private' => true]);
+
+        return $response;
     }
 
     /**

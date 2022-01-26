@@ -4,7 +4,7 @@
  * @version 1.0.0
  */
 
-namespace App\Themes\CoreTheme\Services\Managers;
+namespace App\Themes\CoreTheme\Managers;
 
 use WP_Error;
 use NewsHour\WPCoreThemeComponents\Utilities;

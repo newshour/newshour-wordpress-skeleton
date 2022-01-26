@@ -7,6 +7,6 @@
  */
 
 use NewsHour\WPCoreThemeComponents\Controllers\FrontController;
-use App\Themes\CoreTheme\Http\Controllers\Pages\PageController;
+use App\Themes\CoreTheme\Controllers\Pages\PageController;
 
 FrontController::run(PageController::class, 'view');
