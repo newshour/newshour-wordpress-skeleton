@@ -105,7 +105,7 @@ _Syfmony Component Exclusions_:
 
 Different Context classes can be passed depending on the needs of the Controller/route. Single "post" pages can be passed a `PostContext` or single "page" pages can be passed a `PageContext`. The default `Context` interface can be type-hinted in the controller's constructor to let the theme automatically choose a context class depending on the Wordpress template "type" (e.g. single, page, archive, home...). A Request object can also be retrieved from a Context class by using the `getRequest()` method.
 
-Custom Context classes can also be registered with the service container and type-hinted in a Controller. For example, if you have a Controller/route which loads RSS feeds, you may wish to create a specific RSS Context class. See the `FilterManager` class for an example of how a custom `Context` is registered with the service container.
+Custom Context classes can also be registered with the service container and type-hinted in a Controller. For example, if you have a Controller/route which loads RSS feeds, you may wish to create a specific RSS Context class.
 
 #### Routing
 
