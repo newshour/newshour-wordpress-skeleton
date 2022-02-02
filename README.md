@@ -214,6 +214,31 @@ $response->setCache([
 return $response;
 ```
 
+## Admin
+
+Extending the Wordpress admin can be done in two ways: 1) using Advanced Custom Fields to create additional UI components and 2) using [Wordpress screens](https://codex.wordpress.org/Plugin_API/Admin_Screen_Reference) to create additional business logic.
+
+The Core Theme encapsulates admin business logic into "screens" by implementing the interface `ScreenInterface`. Each Wordpress admin "screen" can be mapped in the service container to a corresponding class that implements this interface. To do this, you simply need to add the `$screenId` argument, which is any valid ID value returned by [WP_Screen](https://developer.wordpress.org/reference/classes/wp_screen/), in `config/services.yaml` to each screen class constructor:
+
+```yaml
+App\Themes\CoreTheme\Admin\Screens\PostScreen:
+    arguments:
+        $screenId: 'post'
+    tags: ['wp.screen']
+```
+
+...or by setting a class constant in your screen class:
+
+```php
+class PostScreen extends AbstractScreen
+{
+    // The WP_Screen ID. This is used to map our classes to Wordpress "screens".
+    public const SCREEN_ID = 'post';
+
+```
+
+**Heads up:** For each screen class, you must tag it with `wp.screen` in your `config/services.yaml` file.
+
 ## Theme Filters
 
 The following "Wordpress filters" can be used to hook into certain aspects of the Core Theme Components library:
