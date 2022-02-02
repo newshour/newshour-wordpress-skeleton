@@ -22,11 +22,12 @@ class PostScreen extends AbstractScreen
     {
         // ...here we can run things related to the `post` screen...but heads up, we can only hook
         // into Wordpress actions/filters that fire after the `current_screen` action.
-        add_action('admin_notices', function() {
+        add_action('admin_notices', function () {
             $user = wp_get_current_user();
             $name = empty($user->first_name) ? $user->user_nicename : $user->first_name;
 
             echo sprintf(
+                //phpcs:ignore
                 '<div class="notice notice-info is-dismissible"><p>Hello <b>%s</b>, this message was generated in: <pre>%s</pre></p></div>',
                 $name,
                 __CLASS__
