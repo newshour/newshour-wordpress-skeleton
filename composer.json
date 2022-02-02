@@ -26,7 +26,7 @@
         "roots/wp-config": "1.0.0",
         "roots/wp-password-bcrypt": "1.1.0",
         "vlucas/phpdotenv": "^5.3",
-        "newshour/wp-core-theme-components": "^2.0.1",
+        "newshour/wp-core-theme-components": "^2.0.3",
         "wpackagist-plugin/advanced-custom-fields": "^5.10.1",
         "wpackagist-plugin/classic-editor": "^1.0",
         "wpackagist-plugin/debug-bar": "^1.1",
