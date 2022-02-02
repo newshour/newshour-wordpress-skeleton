@@ -5,15 +5,23 @@ services:
 
     App\Themes\CoreTheme\:
         resource: '../web/app/themes/core/src/*'
-        exclude: '../web/app/themes/core/src/{Controllers,Managers,Tests}/*'
+        exclude: '../web/app/themes/core/src/{Tests}/*'
 
     App\Themes\CoreTheme\Controllers\:
         resource: '../web/app/themes/core/src/Controllers/*'
         tags: ['controller.service_arguments']
 
+    App\Themes\CoreTheme\Managers\:
+        resource: '../web/app/themes/core/src/Managers/*'
+        tags: ['core_theme.manager']
+
     App\Themes\CoreTheme\Commands\:
         resource: '../web/app/themes/core/src/Commands/*'
-        tags: ['controller.service_arguments']
+        tags: ['wp.command']
+
+    App\Themes\CoreTheme\Admin\Screens\:
+        resource: '../web/app/themes/core/src/Admin/Screens/*'
+        tags: ['wp.screen']
 
     App\Themes\CoreTheme\Contexts\ExampleContext:
         arguments: ['@request', '@timber.context']
