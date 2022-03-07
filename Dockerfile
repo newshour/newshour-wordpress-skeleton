@@ -47,15 +47,11 @@ RUN set -eux; \
     rm -rf /var/lib/apt/lists/*
 
 # Needed for socket address
-RUN mkdir -p /run/php && \
+RUN mkdir -p /var/run/php && \
     mkdir -p /opt/wp-project-skeleton
 
 COPY --chown=www-data:www-data . /opt/wp-project-skeleton
 WORKDIR /opt/wp-project-skeleton
-
-# Setup apache.
-COPY docker/conf/apache/sites-available/default.conf /etc/apache2/sites-available/default.conf
-COPY docker/conf/apache/conf-available/* /etc/apache2/conf-available/
 
 # Run scripts
 COPY ./docker/scripts /opt/docker/scripts

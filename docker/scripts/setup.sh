@@ -23,22 +23,25 @@ sed -i \
     /etc/php/${PHP_VER}/fpm/php.ini
 
 sed -i \
+    -e "s/^error_log.*/error_log = \/proc\/self\/fd\/2/g" \
+    /etc/php/${PHP_VER}/fpm/php-fpm.conf
+
+sed -i \
     -e "s/^max_execution_time.*/max_execution_time = 120/g" \
     -e "s/^memory_limit.*/memory_limit = 512M/g" \
     -e "s/^;date\.timezone.*/date\.timezone = America\/New_York/g" \
     -e "s/^;\(include_path = \".:\/usr\/share\/php*\)/\1/g" \
+    -e "s/^;error_log = syslog.*/error_log = \/proc\/self\/fd\/2/g" \
     /etc/php/${PHP_VER}/cli/php.ini
-
-sed -i \
-    -e "s/^error_log =.*/error_log = \/dev\/stderr/g" \
-    /etc/php/${PHP_VER}/fpm/php-fpm.conf
 
 sed -i \
     -e "s/^user =.*/user = www-data/g" \
     -e "s/^group =.*/group = www-data/g" \
     -e "s/^listen.owner =.*/listen.owner = www-data/g" \
     -e "s/^listen.group =.*/listen.group = www-data/g" \
-    -e "s/^;access.log =.*/access.log = \/dev\/stdout/g" \
+    -e "s/^pm.max_children =.*/pm.max_children = 16/g" \
+    -e "s/^pm.max_requests =.*/pm.max_requests = 1000/g" \
+    -e "s/^;access.log =.*/access.log = \/proc\/self\/fd\/2/g" \
     -e "s/^;catch_workers_output =.*/catch_workers_output = yes/g" \
     -e "s/^;decorate_workers_output =.*/decorate_workers_output = no/g" \
     /etc/php/${PHP_VER}/fpm/pool.d/www.conf
@@ -46,6 +49,10 @@ sed -i \
 # -----------------------------------------------------------------------------
 # WEB SERVER
 # -----------------------------------------------------------------------------
+
+# Setup apache configs and mods
+cp /opt/wp-project-skeleton/docker/conf/apache/sites-available/default.conf /etc/apache2/sites-available/default.conf
+cp /opt/wp-project-skeleton/docker/conf/apache/conf-available/* /etc/apache2/conf-available/
 
 # Setup apache configs and mods
 { \
@@ -56,7 +63,7 @@ a2dissite 000-default && \
     a2dismod mpm_prefork && \
     a2ensite default && \
     a2enmod mpm_event alias deflate expires ext_filter filter headers mime proxy proxy_fcgi rewrite setenvif && \
-    a2enconf localhost php${PHP_VER}-fpm
+    a2enconf localhost logs security php${PHP_VER}-fpm
 
 # -----------------------------------------------------------------------------
 # CLI APPLICATIONS

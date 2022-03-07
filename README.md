@@ -205,7 +205,7 @@ return $this->render('pages/index.twig', $this->context, $extra);
 Since `render()` returns a [Response](https://symfony.com/doc/current/components/http_foundation.html#response) object, you can also set headers directly on the object.
 
 ```php
-$response = return $this->render('pages/index.twig', $this->context);
+$response = $this->render('pages/index.twig', $this->context);
 $response->setCache([
     'max_age' => 300,
     'public' => true
