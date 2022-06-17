@@ -15,11 +15,11 @@ jobs:
       - name: Build composer deps
         uses: php-actions/composer@v5
         with:
-          php_version: 7.4
+          php_version: 8.1
           args: --optimize-autoloader
 
       - name: Run PHP tests
         uses: php-actions/composer@v5
         with:
-          php_version: 7.4
+          php_version: 8.1
           command: tests
