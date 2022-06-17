@@ -85,7 +85,10 @@ if [[ "${APP_ENV}" == "staging" || "${APP_ENV}" == "production" ]]; then
 
     # Opcache - See https://www.php.net/manual/en/opcache.installation.php
     { \
-        echo 'opcache.revalidate_freq=60'; \
+        echo 'opcache.validate_timestamps=0'; \
+        echo 'opcache.memory_consumption=256'; \
+        echo 'opcache.max_accelerated_files=20000'; \
+        echo 'opcache.jit_buffer_size=100M'; \
     } >> /etc/php/${PHP_VER}/mods-available/opcache.ini
 
     # Error logging
@@ -138,3 +141,6 @@ else
 fi
 
 phpenmod error-logging
+
+# Cleanup
+apt-get -y autoremove && apt-get clean autoclean && rm -fr /var/lib/apt/lists/* /tmp/* /var/tmp/*
