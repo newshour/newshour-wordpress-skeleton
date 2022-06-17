@@ -2,10 +2,14 @@
     "name": "newshour/wp-project-skeleton",
     "type": "project",
     "license": "MIT",
-    "description": "Wordpress project skeleton based off the Bedrock project.",
+    "description": "An MVC Wordpress project skeleton.",
     "config": {
         "sort-packages": true,
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "allow-plugins": {
+            "composer/installers": true,
+            "roots/wordpress-core-installer": true
+        }
     },
     "repositories": [
         {
@@ -18,16 +22,16 @@
         }
     ],
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.1",
         "composer/installers": "^1.4",
         "nesbot/carbon": "^2.19",
         "oscarotero/env": "^2.1",
-        "roots/wordpress": "^5.9",
+        "roots/wordpress": "^6.0",
         "roots/wp-config": "1.0.0",
         "roots/wp-password-bcrypt": "1.1.0",
         "vlucas/phpdotenv": "^5.3",
-        "newshour/wp-core-theme-components": "^2.0.9",
-        "wpackagist-plugin/advanced-custom-fields": "^5.10.1",
+        "newshour/wp-core-theme-components": "^2.1.0",
+        "wpackagist-plugin/advanced-custom-fields": "^5.12",
         "wpackagist-plugin/classic-editor": "^1.0",
         "wpackagist-plugin/debug-bar": "^1.1",
         "wpackagist-plugin/wp-mail-smtp": "^3.0.0"

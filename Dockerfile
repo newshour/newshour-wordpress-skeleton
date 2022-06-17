@@ -1,11 +1,11 @@
 # -----------------------------------------------------------------------------
 # Dockerfile for running an Ubuntu LAMP stack.
 # -----------------------------------------------------------------------------
-FROM ubuntu:20.04
+FROM ubuntu:latest
 
 # Set extra arg/env vars.
 ARG APP_ENV
-ARG PHP_VER=7.4
+ARG PHP_VER=8.1
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN set -eux; \
