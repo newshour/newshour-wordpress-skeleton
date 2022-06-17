@@ -7,10 +7,10 @@
 namespace App\Themes\CoreTheme\Managers;
 
 use Symfony\Component\HttpFoundation\Request;
-use Timber\Timber;
 use Twig\Environment;
 use Twig\TwigFunction;
 use NewsHour\WPCoreThemeComponents\Managers\Manager;
+use NewsHour\WPCoreThemeComponents\TimberLoader;
 use App\Themes\CoreTheme\Models\Article;
 use App\Themes\CoreTheme\Models\Page;
 
@@ -85,19 +85,24 @@ class TimberManager extends Manager
             wp_die('BASE_DIR is not defined. The constant must be set in "config/application.php"');
         }
 
-        $timber = new Timber();
-
         // Set the Timber template location.
-        $timber::$locations = trailingslashit(BASE_DIR) . 'templates';
+        $init['locations'] = trailingslashit(BASE_DIR) . 'templates';
 
         if (defined('TIMBER_TEMPLATE_DIR')) {
-            $timber::$locations = TIMBER_TEMPLATE_DIR;
+            $init['locations'] = TIMBER_TEMPLATE_DIR;
         }
 
         // Cache twig in staging and production.
         if (WP_ENV != 'development') {
-            $timber::$cache = true;
+            $init['cache'] = true;
         }
+
+        TimberLoader::load($init);
+
+        add_filter('timber/context', function ($context) {
+            $context['is_home'] = is_front_page();
+            return $context;
+        });
     }
 
     /**
