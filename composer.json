@@ -31,7 +31,7 @@
         "roots/wp-password-bcrypt": "1.1.0",
         "vlucas/phpdotenv": "^5.3",
         "newshour/wp-core-theme-components": "^2.1.0",
-        "wpackagist-plugin/advanced-custom-fields": "^5.12",
+        "wpackagist-plugin/advanced-custom-fields": "^6.0.0",
         "wpackagist-plugin/classic-editor": "^1.0",
         "wpackagist-plugin/debug-bar": "^1.1",
         "wpackagist-plugin/wp-mail-smtp": "^3.0.0"
